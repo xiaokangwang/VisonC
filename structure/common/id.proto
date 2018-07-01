@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+
+message NodeID{
+  string name=1;
+}
+
+message SignaledNodeID{
+  string name=1;
+}
+
+message ID{
+  string name=1;
+}
