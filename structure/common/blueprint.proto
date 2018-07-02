@@ -2,10 +2,16 @@ syntax = "proto3";
 
 message Blueprint{
   ID BlueprintID = 1;
-
+  repeated DataInputDocker =2;
+  repeated DataOutputDocker =3;
+  repeated SignalInputDocker =4;
+  repeated SignalOutputDocker =5;
 }
 
 message BlueprintSpec{
   ID BlueprintID = 1;
-
+  repeated DataInputDocker =2;
+  repeated DataOutputDocker =3;
+  repeated SignalInputDocker =4;
+  repeated SignalOutputDocker =5;
 }
