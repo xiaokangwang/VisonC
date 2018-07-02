@@ -22,3 +22,7 @@ message TraitSelector{
     ID traitID = 1;
     KeyedValueList keyedidList = 2;
 }
+
+message TraitSelectorList{
+  repeated TraitSelector TraitSelectorList=1;
+}

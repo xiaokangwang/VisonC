@@ -1,5 +1,6 @@
 syntax = "proto3";
 
 message Blueprint{
-
+  ID BlueprintID = 1;
+  
 }

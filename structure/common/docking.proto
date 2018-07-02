@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message DataInputDocker{
+  ID DockerID = 1;
+  
+}
+
+message DataOutputDocker{
+  ID DockerID = 1;
+}
+
+message SignalInputDocker{
+  ID DockerID = 1;
+}
+
+message SignalOutputDocker{
+  ID DockerID = 1;
+}
