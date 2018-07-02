@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message Value{
+  oneof Type {
+    string stringValue=1;
+    int64 intValue=2; 
+  }
+}

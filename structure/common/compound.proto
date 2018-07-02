@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+message KeyedID{
+  string key =1;
+  ID id=2;
+}
+
+message KeyedValue{
+  string key =1;
+  Value value=2;
+}
+
+message KeyedIDList{
+  repeated KeyedID keyedIDList=1;
+}
+
+message KeyedValueList{
+  repeated KeyedValue keyedIDList=1;
+}
+
+message TraitSelector{
+    ID traitID = 1;
+    KeyedValueList keyedidList = 2; 
+}
