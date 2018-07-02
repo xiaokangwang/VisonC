@@ -20,5 +20,5 @@ message KeyedValueList{
 
 message TraitSelector{
     ID traitID = 1;
-    KeyedValueList keyedidList = 2; 
+    KeyedValueList keyedidList = 2;
 }

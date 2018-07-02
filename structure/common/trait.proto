@@ -3,7 +3,3 @@ syntax = "proto3";
 message Trait{
 
 }
-
-message TraitSelector{
-    
-}
