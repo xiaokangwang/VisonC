@@ -2,5 +2,10 @@ syntax = "proto3";
 
 message Blueprint{
   ID BlueprintID = 1;
-  
+
+}
+
+message BlueprintSpec{
+  ID BlueprintID = 1;
+
 }

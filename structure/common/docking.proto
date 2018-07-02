@@ -8,6 +8,7 @@ message DataInputDocker{
 message DataOutputDocker{
   ID DockerID = 1;
   TraitSelectorList traitSelector=2;
+  BlueprintSpec Joiner=3;
 }
 
 message SignalInputDocker{
@@ -18,4 +19,5 @@ message SignalInputDocker{
 message SignalOutputDocker{
   ID DockerID = 1;
   TraitSelectorList traitSelector=2;
+  BlueprintSpec Joiner=3;
 }
