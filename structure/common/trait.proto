@@ -1,5 +1,7 @@
 syntax = "proto3";
 
 message Trait{
-
+  ID traitID =1;
+  repeated BlueprintSpec Cap =2;
+  repeated ID conformsTraitID =3;
 }
