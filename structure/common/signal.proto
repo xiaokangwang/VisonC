@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+message Signal{
+  ID name=1;
+  Props prop =2;
+  bytes Imprint = 6;
+  repeated BlueprintSpec Cap =7;
+}
+
+message Props{
+  repeated Prop =1;
+}
+
+message Prop{
+  ID id =1;
+}
