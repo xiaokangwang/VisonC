@@ -12,4 +12,5 @@ message BlueprintSpec{
   repeated DataOutputDocker =3;
   repeated SignalInputDocker =4;
   repeated SignalOutputDocker =5;
+  ID PharseAttach=6;
 }
