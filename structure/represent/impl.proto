@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message ImplElab{
+  bytes Imprint = 1;
+  BlueprintSpec Spec = 2;
+  repeated bytes Entrypoint =3;
+}
+message ImplExecBlock{
+  bytes Imprint = 1;
+  BlueprintSpec Spec = 2;
+  repeated bytes waits =3;
+}
+message ImplConnection{
+  bytes from = 1;
+  bytes to = 2;
+  bytes Imprint = 3;
+}

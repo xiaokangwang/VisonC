@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+message ImpInstruction{
+  oneof InstrType{
+
+  }
+}
+
+message DataImplStmt{
+  KeyedIDList assignee = 1;
+  NodeID invoke =2;
+  KeyedIDList input = 3;
+
+}
+message SignalImplStmt{
+  KeyedIDList assignee = 1;
+  SignaledNodeID invoke =2;
+  KeyedIDList input = 3;
+  repeated ID wait =4;
+}
+
+message Assign{
+  ID to=1;
+  ID from=2;
+}
+
+message Join{
+  ID to=1;
+  ID from=2;
+}

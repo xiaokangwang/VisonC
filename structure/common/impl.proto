@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message ImplSpec{
+  bytes Imprint =1;
+  BlueprintID Blueprint=2;
+}

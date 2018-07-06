@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Pharse{
+ID PharseID = 1;
+BlueprintSpec spec=2;
+}
+
+message Journel{
+repeated Pharse pharse = 1;
+}
