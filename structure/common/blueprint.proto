@@ -1,4 +1,15 @@
 syntax = "proto3";
+package vison.common;
+option go_package = "common";
+
+import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/signal.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
 
 message Blueprint{
   BlueprintSpec Spec= 1;
@@ -8,9 +19,9 @@ message Blueprint{
 
 message BlueprintSpec{
   ID BlueprintID = 1;
-  repeated DataInputDocker =2;
-  repeated DataOutputDocker =3;
-  repeated SignalInputDocker =4;
-  repeated SignalOutputDocker =5;
+  repeated DataInputDocker dataInputDocker=2;
+  repeated DataOutputDocker dataOutputDocker=3;
+  repeated SignalInputDocker SignalInputDocker=4;
+  repeated SignalOutputDocker SignalOutputDocker=5;
   ID PharseAttach=6;
 }
