@@ -2,24 +2,18 @@ syntax = "proto3";
 package vison.common;
 option go_package = "common";
 
-import "github.com/xiaokangwang/VisonC/structure/common/blueprint.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/signal.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
 
+import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
 
 message KeyedID{
   string key =1;
-  ID id=2;
+  vison.common.ID id=2;
 }
 
 message KeyedValue{
   string key =1;
-  Value value=2;
+  vison.common.Value value=2;
 }
 
 message KeyedIDList{
@@ -31,7 +25,7 @@ message KeyedValueList{
 }
 
 message TraitSelector{
-    ID traitID = 1;
+    vison.common.ID traitID = 1;
     KeyedValueList keyedidList = 2;
 }
 

@@ -1,24 +1,19 @@
 syntax = "proto3";
 package vison.common;
 option go_package = "common";
-import "github.com/xiaokangwang/VisonC/structure/common/blueprint.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
+
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 
 message Signal{
-  ID name=1;
+  vison.common.ID name=1;
   Props prop =2;
   bytes Imprint = 6;
-  repeated BlueprintSpec Cap =7;
+  repeated vison.common.BlueprintSpec Cap =7;
 }
 
 message Props{
-  repeated Prop =1;
+  repeated Prop prop =1;
 }
 
 message Prop{

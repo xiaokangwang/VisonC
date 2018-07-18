@@ -2,23 +2,17 @@ syntax = "proto3";
 package vison.represent;
 option go_package = "represent";
 
-import "github.com/xiaokangwang/VisonC/structure/common/blueprint.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/signal.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
+
 message ImplElab{
   bytes Imprint = 1;
-  BlueprintSpec Spec = 2;
+  vison.common.BlueprintSpec Spec = 2;
   repeated bytes Entrypoint =3;
 }
 message ImplExecBlock{
   bytes Imprint = 1;
-  BlueprintSpec Spec = 2;
+  vison.common.BlueprintSpec Spec = 2;
   repeated bytes waits =3;
 }
 message ImplConnection{

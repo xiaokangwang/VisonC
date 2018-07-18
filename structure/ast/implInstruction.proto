@@ -2,15 +2,10 @@ syntax = "proto3";
 package vison.ast;
 option go_package = "ast";
 
-import "github.com/xiaokangwang/VisonC/structure/common/blueprint.proto";
+
 import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/signal.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
+
 
 message ImpInstruction{
   oneof InstrType{
@@ -22,24 +17,24 @@ message ImpInstruction{
 }
 
 message DataImplStmt{
-  KeyedIDList assignee = 1;
-  NodeID invoke =2;
-  KeyedIDList input = 3;
+  vison.common.KeyedIDList assignee = 1;
+  vison.common.NodeID invoke =2;
+  vison.common.KeyedIDList input = 3;
 
 }
 message SignalImplStmt{
-  KeyedIDList assignee = 1;
-  SignaledNodeID invoke =2;
-  KeyedIDList input = 3;
-  repeated ID wait =4;
+  vison.common.KeyedIDList assignee = 1;
+  vison.common.SignaledNodeID invoke =2;
+  vison.common.KeyedIDList input = 3;
+  repeated vison.common.ID wait =4;
 }
 
 message Assign{
-  ID to=1;
-  ID from=2;
+  vison.common.ID to=1;
+  vison.common.ID from=2;
 }
 
 message Join{
-  ID to=1;
-  ID from=2;
+  vison.common.ID to=1;
+  vison.common.ID from=2;
 }

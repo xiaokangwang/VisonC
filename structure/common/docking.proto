@@ -1,36 +1,32 @@
 syntax = "proto3";
 package vison.common;
 option go_package = "common";
-import "github.com/xiaokangwang/VisonC/structure/common/blueprint.proto";
+
 import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/journel.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/signal.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/trait.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/value.proto";
+
 message DataInputDocker{
-  ID DockerID = 1;
-  TraitSelectorList traitSelector=2;
+  vison.common.ID DockerID = 1;
+  vison.common.TraitSelectorList traitSelector=2;
   bytes Imprint = 3;
 }
 
 message DataOutputDocker{
-  ID DockerID = 1;
-  TraitSelectorList traitSelector=2;
-  BlueprintSpec Joiner=3;
+  vison.common.ID DockerID = 1;
+  vison.common.TraitSelectorList traitSelector=2;
+  vison.common.ID Joiner=3;
   bytes Imprint = 4;
 }
 
 message SignalInputDocker{
-  ID DockerID = 1;
-  TraitSelectorList traitSelector=2;
+  vison.common.ID DockerID = 1;
+  vison.common.TraitSelectorList traitSelector=2;
   bytes Imprint = 3;
 }
 
 message SignalOutputDocker{
-  ID DockerID = 1;
-  TraitSelectorList traitSelector=2;
-  BlueprintSpec Joiner=3;
+  vison.common.ID DockerID = 1;
+  vison.common.TraitSelectorList traitSelector=2;
+  vison.common.ID Joiner=3;
   bytes Imprint = 4;
 }
