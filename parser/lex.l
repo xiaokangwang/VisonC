@@ -1,19 +1,34 @@
 %{
 package parser
 
-func (lx *lexer)lex()string{
+import "fmt"
+
+func (lx *Lexer) scan() string {
+  c := lx.Enter()
 
 %}
 
-%yyn lx.next()
-%yyc lx.c
+%yyn c = lx.Next()
+%yyc c
+
+%yym lx.Mark()
+
+%yyt lx.stat
 
 %x QUOTE
+%x ESCAPE
+
 
 %%
 
+    c = lx.Rule0()
+
+\\
+    lx.stat=2
+    return "ESCAPESTART"
+
 \"
-    yyt=QUOTE
+    lx.stat=1
     return "QUOTESTART"
 
 blueprint
@@ -68,9 +83,13 @@ P[a-z]([a-z0-9_])+
     return "QUOTECTX"
 
 <QUOTE>\"
-    yyt = INITIAL
+    lx.stat = 0
     return "QUOTEEND"
 
+<ESCAPE>.
+    return "ESCAPE"
+
 %%
-    return "UNKNOW"
+
+    return "UNKNON"
 }
