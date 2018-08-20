@@ -12,7 +12,7 @@ func (lx *lexer)lex()string{
 
 %%
 
-"
+\"
     yyt=QUOTE
     return "QUOTESTART"
 
