@@ -1,14 +1,20 @@
 %{
 package parser
 
-func (lx *lexer)lex(){
+func (lx *lexer)lex()string{
 
 %}
 
-%yyn lx.next
+%yyn lx.next()
 %yyc lx.c
 
+%x QUOTE
+
 %%
+
+"
+    yyt=QUOTE
+    return "QUOTESTART"
 
 blueprint
     return "blueprint"
@@ -46,16 +52,25 @@ P[a-z]([a-z0-9_])+
 :=
     return ":="
 
-<=
+\<=
     return "<="
 
 =>
     return "=>"
 
-<<
+\<\<
     return "<<"
 
->>
+\>\>
     return ">>"
 
+<QUOTE>[^\"]
+    return "QUOTECTX"
+
+<QUOTE>\"
+    yyt = INITIAL
+    return "QUOTEEND"
+
 %%
+    return "UNKNOW"
+}
