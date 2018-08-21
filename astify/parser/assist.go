@@ -39,3 +39,4 @@ func GetLexerResult(file *token.File, src io.RuneReader) {
 	}
 
 }
+type ParsedToken
