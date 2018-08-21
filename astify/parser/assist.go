@@ -25,7 +25,8 @@ func rune2Class(r rune) int {
 	return classUnicode
 }
 
-func GetLexerResult(file *token.File, src io.RuneReader) {
+func GetLexerResult(file *token.File, src io.RuneReader) []*ParsedToken {
+	var ret []*ParsedToken
 	lx, err := lex.New(file, src, lex.RuneClass(rune2Class))
 	if err != nil {
 		panic(err)
@@ -36,7 +37,17 @@ func GetLexerResult(file *token.File, src io.RuneReader) {
 		if o == "EOF" {
 			break
 		}
+		parsedToken := new(ParsedToken)
+		parsedToken.Trace = int(l.First.Pos())
+		parsedToken.Type = o
+		parsedToken.Content = string(l.TokenBytes(nil))
+		ret = append(ret, parsedToken)
 	}
-
+	return ret
 }
-type ParsedToken
+
+type ParsedToken struct {
+	Type    string
+	Content string
+	Trace   int
+}
