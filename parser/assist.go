@@ -25,7 +25,7 @@ func rune2Class(r rune) int {
 	return classUnicode
 }
 
-func NewLexer(file *token.File, src io.RuneReader) {
+func GetLexerResult(file *token.File, src io.RuneReader) {
 	lx, err := lex.New(file, src, lex.RuneClass(rune2Class))
 	if err != nil {
 		panic(err)
