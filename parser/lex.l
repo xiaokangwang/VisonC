@@ -90,6 +90,12 @@ P[a-z]([a-z0-9_])+
     return "ESCAPE"
 
 %%
+    if c, ok := lx.Abort(); ok {
+      if c == -1 {
+        return "EOF"
+      }
+      return "UNKNOWN"
+    }
 
-    return "UNKNON"
+    return "UNKNOWN ERR"
 }

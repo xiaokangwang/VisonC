@@ -31,5 +31,11 @@ func NewLexer(file *token.File, src io.RuneReader) {
 		panic(err)
 	}
 	l := &Lexer{lx, 0}
+	for {
+		o := l.scan()
+		if o == "EOF" {
+			break
+		}
+	}
 
 }
