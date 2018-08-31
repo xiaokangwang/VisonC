@@ -23,7 +23,7 @@ func (lx *Lexer) scan() string {
 
     c = lx.Rule0()
 
-\\
+<QUOTE>\\
     lx.stat=2
     return "ESCAPESTART"
 
@@ -90,6 +90,7 @@ P[a-z]([a-z0-9_])+
     return "QUOTEEND"
 
 <ESCAPE>.
+    lx.stat=1
     return "ESCAPE"
 
 %%
