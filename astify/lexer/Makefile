@@ -1,0 +1,2 @@
+gen:
+	golex lex.l
