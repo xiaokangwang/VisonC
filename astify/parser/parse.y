@@ -25,7 +25,7 @@ package parser
 %token <ID> TId
 %token <SignalID> SIgnalID
 %token <NodeID> NOdeID
-%token <Keyword> blueprintKeyword inputKeyword outputKeyword signalKeyword traitKeyword propKeyword implKeyword joinKeyword
+%token <Keyword> blueprintKeyword inputKeyword outputKeyword signalKeyword traitKeyword propKeyword implKeyword joinKeyword newLIne
 %token <Operator> DataAssign SignalAssignL WaitUntilL SignalAssignR WaitUntilR
 %token <Quote> QuoteStart QuoteCtx QuoteEND
 %token <Escape> EscapeStart EscapeCtx
