@@ -79,6 +79,9 @@ P[a-z]([a-z0-9_])+
 \>\>
     return ">>"
 
+([0-9])+
+    return "NUMBER"
+
 <QUOTE>[^\"]
     return "QUOTECTX"
 
