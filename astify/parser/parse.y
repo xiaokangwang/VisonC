@@ -13,12 +13,17 @@ package parser
 %type <ImplDataImplStmt> IMplDAtaImplSTmt
 %type <ImplSignalImplStmt> IMplSIgnalImplSTmt
 
+%type <DataInputDocker> DAtaINputDOcker
+%type <DataOutputDocker> DAtaOUtputDOcker
+%type <SignalInputDocker> SIgnalINputDOcker
+%type <SignalOutputDocker> SIgnalOUtputDOcker
+
 %type <KeyedIDList> KEyedIDLIst KEyedIDLIstONgoing
 %type <KeyedID> KEyedID
 
 %type <String> stringConst stringConstONgoing
 
-%type <Trait> TRait
+%type <TraitSelector> TRaitSElector
 
 %token <Number> numberConst
 
@@ -69,5 +74,25 @@ BLueprintSPecONgoingSN:
   BLueprintSPecONgoingSN traitKeyword TId
 
 BLueprintSPecONgoingSNIoONgoing:
+  BLueprintSPecONgoingSN newLIne '(' |
   BLueprintSPecONgoingSN  '(' |
-  BLueprintSPecONgoingSNIoONgoing
+  BLueprintSPecONgoingSNIoONgoing newLIne |
+  BLueprintSPecONgoingSNIoONgoing DAtaINputDOcker|
+  BLueprintSPecONgoingSNIoONgoing DAtaOUtputDOcker|
+  BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker|
+  BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker
+
+BLueprintSPecONgoingSNIo:
+  BLueprintSPecONgoingSNIoONgoing ')'
+
+DAtaINputDOcker:
+  inputKeyword TId TRaitSElector
+
+DAtaOUtputDOcker:
+  outputKeyword TId TRaitSElector
+
+SIgnalINputDOcker:
+  inputKeyword signalKeyword TId TRaitSElector
+
+SIgnalOUtputDOcker:
+  outputKeyword signalKeyword TId TRaitSElector
