@@ -3,7 +3,7 @@ input signal launching <consolein>
 output signal finish <consoleout>
 ) impl {
 stdout<=Sstdout(lachuning)
-ok<=Swrite(stdout,"Hello world")
+ok<=Swrite(stdout,"Hello world\"")
 fin,ok<=Scompose(<consoleout>,ok)
 fin<=Sset(fin,"exit code",0)
 finish<=fin<<ok
