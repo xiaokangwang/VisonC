@@ -12,3 +12,4 @@
 *.out
 
 *.pb.go
+*.yy.go
