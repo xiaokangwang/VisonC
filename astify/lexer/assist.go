@@ -41,6 +41,9 @@ func GetLexerResult(file *token.File, src io.RuneReader) []*ParsedToken {
 		parsedToken.Trace = int(l.First.Pos())
 		parsedToken.Type = o
 		parsedToken.Content = string(l.TokenBytes(nil))
+		if len(parsedToken.Content) == 1 && parsedToken.Type == "UNKNOWN" {
+			parsedToken.Type = "SINGLE"
+		}
 		ret = append(ret, parsedToken)
 	}
 	return ret
