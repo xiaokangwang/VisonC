@@ -1,0 +1,9 @@
+blueprint PmulandAdd (
+input a <number>
+input b <number>
+input c <number>
+output o <number>
+) impl {
+mulres:=<number>mul(a,b)
+o:=<number>add(mulres,c)
+}
