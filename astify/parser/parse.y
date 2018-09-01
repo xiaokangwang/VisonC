@@ -85,6 +85,21 @@ BLueprintSPecONgoingSNIoONgoing:
 BLueprintSPecONgoingSNIo:
   BLueprintSPecONgoingSNIoONgoing ')'
 
+BLueprintSPec:
+  BLueprintSPecONgoingSNIo newline|
+  BLueprintSPecONgoingSNIo
+
+IMplSPec:
+  IMplSPecONgoing '{'
+
+
+IMplSPecONgoing:
+  implKeyword SIgnalID|
+  implKeyword NOdeID|
+  implKeyword|
+  IMplSPecONgoing 
+
+
 DAtaINputDOcker:
   inputKeyword TId TRaitSElector
 
