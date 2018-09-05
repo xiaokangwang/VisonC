@@ -8,6 +8,7 @@ package parser
 
 %type <BlueprintSpec> BLueprintSPec BLueprintSPecONgoing BLueprintSPecONgoingS BLueprintSPecONgoingN BLueprintSPecONgoingSN BLueprintSPecONgoingSNIoONgoing
 %type <ImplSpec> IMplSPec  IMplSPecONgoing
+%type <ImplBlock> IMplBLock IMplBLockONgoing
 %type <ImpInstruction> IMpINstruction
 %type <ImpInstructionList> IMpINstructionLIst
 %type <ImplDataImplStmt> IMplDAtaImplSTmt
@@ -112,3 +113,18 @@ SIgnalINputDOcker:
 
 SIgnalOUtputDOcker:
   outputKeyword signalKeyword TId TRaitSElector
+
+IMplBLockONgoing:
+  IMplSPec newline|
+  IMplSPec
+
+IMplBLock:
+  IMplBLockONgoing ImpInstructionList
+
+ImpInstructionList:
+  ImpInstructionList newline|
+  ImpInstructionList IMpINstruction
+
+IMpINstruction:
+  IMplDAtaImplSTmt|
+  IMplSIgnalImplSTmt
