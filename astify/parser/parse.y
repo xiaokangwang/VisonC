@@ -89,6 +89,8 @@ BLueprintSPec:
   BLueprintSPecONgoingSNIo newline|
   BLueprintSPecONgoingSNIo
 
+
+
 IMplSPec:
   IMplSPecONgoing '{'
 
@@ -96,7 +98,7 @@ IMplSPec:
 IMplSPecONgoing:
   implKeyword SIgnalID|
   implKeyword NOdeID|
-  implKeyword 
+  implKeyword
 
 
 DAtaINputDOcker:
