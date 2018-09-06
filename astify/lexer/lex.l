@@ -61,7 +61,7 @@ S[a-z]([a-z0-9_])+
 P[a-z]([a-z0-9_])+
     return "Process"
 
-[a-z]([a-z0-9_])*
+[_a-z]([a-z0-9_])*
     return "ID"
 
 :=

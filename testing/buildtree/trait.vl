@@ -1,0 +1,9 @@
+trait vector2{
+
+blueprint add(
+input a <vector2>
+input b <vector2>
+output c <vector2>
+)
+
+}
