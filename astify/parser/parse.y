@@ -149,7 +149,9 @@ IMpINstruction:
   IMplSIgnalImplSTmt
 
 IMplDAtaImplSTmt:
-  KEyedIDLIst DataAssign NOdeID KEyedValueLIst|
+  KEyedIDLIst DataAssign NOdeID KEyedValueLIst
+
+IMplSIgnalImplSTmt
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst |
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst|
   KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst|
