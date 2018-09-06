@@ -31,6 +31,8 @@ package parser
 
 %type <TraitSelector> TRaitSElector
 
+%type <TraitSpec> TRaitSPec
+
 %token <Number> numberConst
 
 %token <ID> TId
@@ -106,7 +108,7 @@ BLueprintSPecONgoingSNIo:
   BLueprintSPecONgoingSNIoONgoing ')'
 
 BLueprintSPec:
-  BLueprintSPecONgoingSNIo newline|
+  BLueprintSPecONgoingSNIo newLIne|
   BLueprintSPecONgoingSNIo
 
 
@@ -134,14 +136,14 @@ SIgnalOUtputDOcker:
   outputKeyword signalKeyword TId TRaitSElector
 
 IMplBLockONgoing:
-  IMplSPec newline|
+  IMplSPec newLIne|
   IMplSPec
 
 IMplBLock:
   IMplBLockONgoing ImpInstructionList }
 
 ImpInstructionList:
-  ImpInstructionList newline|
+  ImpInstructionList newLIne|
   ImpInstructionList IMpINstruction
 
 IMpINstruction:
@@ -156,3 +158,14 @@ IMplSIgnalImplSTmt
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst|
   KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst|
   SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+
+TRaitSElector:
+  TRaitSElectorONgoing TRaitSElector newLIne
+
+TRaitSElectorONgoing:
+  '<'|
+  TRaitSElectorONgoing TRaitSPec
+
+TRaitSPec:
+  TId KEyedValueLIst|
+  TId
