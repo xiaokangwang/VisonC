@@ -33,6 +33,8 @@ package parser
 
 %type <TraitSpec> TRaitSPec
 
+%type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy
+
 %token <Number> numberConst
 
 %token <ID> TId
@@ -169,3 +171,16 @@ TRaitSElectorONgoing:
 TRaitSPec:
   TId KEyedValueLIst|
   TId
+
+TRaitDElcareHEad:
+  traitKeyword TId|
+  traitKeyword TId implKeyword TId
+
+TRaitDElcareBOdy:
+  TRaitDElcareBOdy newLIne|
+  TRaitDElcareBOdy propKeyword TId TRaitSElector|
+  TRaitDElcareBOdy BLueprintSPec|
+  TRaitDElcareBOdy BLueprintSPec IMplBLock
+
+TRaitDElcare:
+  TRaitDElcareHEad '{' TRaitDElcareBOdy '}'
