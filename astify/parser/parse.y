@@ -3,7 +3,36 @@ package parser
 %}
 
 %union{
-
+    BlueprintSpec
+    ImplSpec
+    ImplBlock
+    ImpInstruction
+    ImpInstructionList
+    ImplDataImplStmt
+    ImplSignalImplStmt
+    DataInputDocker
+    DataOutputDocker
+    SignalInputDocker
+    SignalOutputDocker
+    KeyedIDList
+    KeyedID
+    KeyedValueList
+    KeyedValue
+    Value
+    String
+    TraitSelector
+    TraitSpec
+    TraitDelcare
+    SourceClaim
+    SourceClaimS
+    Number
+    ID
+    SignalID
+    NodeID
+    Keyword
+    Operator
+    Quote
+    Escape
 }
 
 %type <BlueprintSpec> BLueprintSPec BLueprintSPecONgoing BLueprintSPecONgoingS BLueprintSPecONgoingN BLueprintSPecONgoingSN BLueprintSPecONgoingSNIoONgoing
