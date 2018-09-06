@@ -128,3 +128,10 @@ ImpInstructionList:
 IMpINstruction:
   IMplDAtaImplSTmt|
   IMplSIgnalImplSTmt
+
+IMplDAtaImplSTmt:
+  KEyedIDLIst DataAssign NOdeID '(' KEyedIDLIst ')'|
+  KEyedIDLIst SignalAssignL SIgnalID '(' KEyedIDLIst ')' |
+  KEyedIDLIst SignalAssignL SIgnalID '(' KEyedIDLIst ')' WaitUntilL KEyedIDLIst|
+  KEyedIDLIst WaitUntilR SIgnalID '(' KEyedIDLIst ')' SignalAssignR KEyedIDLIst|
+  SIgnalID '(' KEyedIDLIst ')' SignalAssignR KEyedIDLIst
