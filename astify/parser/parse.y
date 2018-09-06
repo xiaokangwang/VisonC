@@ -35,6 +35,10 @@ package parser
 
 %type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy SIgnalDEclare SIgnalDEclareHEad
 
+%type <SourceClaim> SOurceCLaim
+
+%type <SourceClaimS> SOurceCLaimS
+
 %token <Number> numberConst
 
 %token <ID> TId
@@ -48,6 +52,11 @@ package parser
 %token '(' ')' '[' ']' '{' '}' ':'
 
 %%
+
+SOurceCLaimS：
+  SOurceCLaim|
+  SOurceCLaimS SOurceCLaim|
+  SOurceCLaimS newLIne
 
 KEyedValue:
   TId ':' VAlue
@@ -191,3 +200,11 @@ SIgnalDEclareHEad:
 
 SIgnalDEclare:
   SIgnalDEclareHEad '{' TRaitDElcareBOdy '}'
+
+
+
+SOurceCLaim:
+  TRaitDElcare|
+  SIgnalDEclare|
+  BLueprintSPec|
+  IMplBLock
