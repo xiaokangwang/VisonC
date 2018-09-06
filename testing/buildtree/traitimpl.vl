@@ -1,4 +1,4 @@
-trait vector2 impl Simplevect2{
+trait Simplevect2 impl vector2{
 
 prop x <primary(_constraint_typeGroup:valtype)>
 prop y <primary(_constraint_typeGroup:valtype)>
