@@ -119,7 +119,7 @@ IMplBLockONgoing:
   IMplSPec
 
 IMplBLock:
-  IMplBLockONgoing ImpInstructionList
+  IMplBLockONgoing ImpInstructionList }
 
 ImpInstructionList:
   ImpInstructionList newline|
