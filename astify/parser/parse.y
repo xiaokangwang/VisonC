@@ -33,7 +33,7 @@ package parser
 
 %type <TraitSpec> TRaitSPec
 
-%type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy
+%type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy SIgnalDEclare SIgnalDEclareHEad
 
 %token <Number> numberConst
 
@@ -184,3 +184,10 @@ TRaitDElcareBOdy:
 
 TRaitDElcare:
   TRaitDElcareHEad '{' TRaitDElcareBOdy '}'
+
+SIgnalDEclareHEad:
+  signalKeyword TId|
+  signalKeyword TId implKeyword TId
+
+SIgnalDEclare:
+  SIgnalDEclareHEad '{' TRaitDElcareBOdy '}'
