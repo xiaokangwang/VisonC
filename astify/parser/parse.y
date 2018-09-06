@@ -22,6 +22,11 @@ package parser
 %type <KeyedIDList> KEyedIDLIst KEyedIDLIstONgoing
 %type <KeyedID> KEyedID
 
+%type <KeyedValueList> KEyedValueLIst KEyedValueLIstONgoing
+%type <KeyedValue> KEyedValue
+
+%type <Value> VAlue
+
 %type <String> stringConst stringConstONgoing
 
 %type <TraitSelector> TRaitSElector
@@ -40,6 +45,20 @@ package parser
 
 %%
 
+KEyedValue:
+  TId ':' VAlue
+
+KEyedValueLIstONgoing:
+  KEyedValueLIstONgoing KEyedValue |
+  '(' KEyedValue
+
+KEyedValueLIst:
+  KEyedIDLIstONgoing ')'
+
+VAlue:
+  TId|
+  numberConst|
+  stringConst
 
 KEyedID:
   TId ':' TId
@@ -130,8 +149,8 @@ IMpINstruction:
   IMplSIgnalImplSTmt
 
 IMplDAtaImplSTmt:
-  KEyedIDLIst DataAssign NOdeID '(' KEyedIDLIst ')'|
-  KEyedIDLIst SignalAssignL SIgnalID '(' KEyedIDLIst ')' |
-  KEyedIDLIst SignalAssignL SIgnalID '(' KEyedIDLIst ')' WaitUntilL KEyedIDLIst|
-  KEyedIDLIst WaitUntilR SIgnalID '(' KEyedIDLIst ')' SignalAssignR KEyedIDLIst|
-  SIgnalID '(' KEyedIDLIst ')' SignalAssignR KEyedIDLIst
+  KEyedIDLIst DataAssign NOdeID KEyedValueLIst|
+  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst |
+  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst|
+  KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst|
+  SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
