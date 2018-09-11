@@ -353,8 +353,14 @@ ImpInstructionList:
   }
 
 IMpINstruction:
-  IMplDAtaImplSTmt|
-  IMplSIgnalImplSTmt
+  IMplDAtaImplSTmt
+  {
+  $$=$1
+  }
+  |IMplSIgnalImplSTmt
+  {
+  $$=$1
+  }
 
 IMplDAtaImplSTmt:
   KEyedIDLIst DataAssign NOdeID KEyedValueLIst
