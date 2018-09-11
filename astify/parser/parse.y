@@ -198,9 +198,19 @@ BLueprintSPecONgoingN:
   }
 
 BLueprintSPecONgoingSN:
-  BLueprintSPecONgoingS |
-  BLueprintSPecONgoingN |
-  BLueprintSPecONgoingSN traitKeyword TId
+  BLueprintSPecONgoingS
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingN
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingSN traitKeyword TId
+  {
+  $$=$1
+  //TODO
+  }
 
 BLueprintSPecONgoingSNIoONgoing:
   BLueprintSPecONgoingSN newLIne '(' |
