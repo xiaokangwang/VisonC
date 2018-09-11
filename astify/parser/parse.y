@@ -105,10 +105,20 @@ KEyedValue:
 
 KEyedValueLIstONgoing:
   KEyedValueLIstONgoing KEyedValue |
+  {
+  $$.KeyedIDList = append($1.KeyedIDList,$2)
+  }
   '(' KEyedValue
+  {
+  $$=&KeyedValueList{}
+  $$.KeyedIDList = make([]tycommon.KeyedValue)
+  }
 
 KEyedValueLIst:
   KEyedIDLIstONgoing ')'
+  {
+  $$=$1
+  }
 
 VAlue:
   TId|
