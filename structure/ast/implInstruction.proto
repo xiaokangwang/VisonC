@@ -38,3 +38,8 @@ message Join{
   vison.common.ID to=1;
   vison.common.ID from=2;
 }
+
+message ImpBlock{
+  repeated ImpInstruction ctx =1;
+  vison.common.ImplSpec spec=2;
+}

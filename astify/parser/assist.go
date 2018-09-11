@@ -35,3 +35,8 @@ type SymHolder struct {
 	Quote              string
 	Escape             string
 }
+
+type SourceClaimC struct {
+	Contain       int
+	BlueprintSpec tycommon.BlueprintSpec
+}
