@@ -213,20 +213,66 @@ BLueprintSPecONgoingSN:
   }
 
 BLueprintSPecONgoingSNIoONgoing:
-  BLueprintSPecONgoingSN newLIne '(' |
-  BLueprintSPecONgoingSN  '(' |
-  BLueprintSPecONgoingSNIoONgoing newLIne |
-  BLueprintSPecONgoingSNIoONgoing DAtaINputDOcker|
-  BLueprintSPecONgoingSNIoONgoing DAtaOUtputDOcker|
-  BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker|
-  BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker
+  BLueprintSPecONgoingSN newLIne '('
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingSN  '('
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingSNIoONgoing newLIne
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingSNIoONgoing DAtaINputDOcker
+  {
+  $$=$1
+  if $$.DataInputDocker == nil {
+    $$.DataInputDocker =  make([]*tycommon.DataInputDocker)
+  }
+  $$.DataInputDocker = append($$.DataInputDocker,$2)
+  }
+  |BLueprintSPecONgoingSNIoONgoing DAtaOUtputDOcker
+  {
+  $$=$1
+  if $$.DataOutputDocker == nil {
+    $$.DataOutputDocker =  make([]*tycommon.DataOutputDocker)
+  }
+  $$.DataOutputDocker = append($$.DataOutputDocker,$2)
+  }
+  |BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker
+  {
+  $$=$1
+  if $$.SignalInputDocker == nil {
+    $$.SignalInputDocker =  make([]*tycommon.SignalInputDocker)
+  }
+  $$.SignalInputDocker = append($$.SignalInputDocker,$2)
+  }
+  |BLueprintSPecONgoingSNIoONgoing SIgnalOUtputDOcker
+  {
+  $$=$1
+  if $$.SignalOutputDocker == nil {
+    $$.SignalOutputDocker =  make([]*tycommon.SignalOutputDocker)
+  }
+  $$.SignalOutputDocker = append($$.SignalOutputDocker,$2)
+  }
 
 BLueprintSPecONgoingSNIo:
   BLueprintSPecONgoingSNIoONgoing ')'
+  {
+  $$=$1
+  }
 
 BLueprintSPec:
-  BLueprintSPecONgoingSNIo newLIne|
-  BLueprintSPecONgoingSNIo
+  BLueprintSPecONgoingSNIo newLIne
+  {
+  $$=$1
+  }
+  |BLueprintSPecONgoingSNIo
+  {
+  $$=$1
+  }
 
 
 
