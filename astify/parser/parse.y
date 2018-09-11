@@ -81,19 +81,19 @@ Escape             string
 %token <Quote> QuoteStart QuoteCtx QuoteEND
 %token <Escape> EscapeStart EscapeCtx
 
-%token '(' ')' '[' ']' '{' '}' ':'
+%token <Keyword> '(' ')' '[' ']' '{' '}' ':'
 
 %%
 
-SOurceCLaimS: SOurceCLaim|
+SOurceCLaimS: SOurceCLaim
   {
   $$=SourceClaimSFromSourceClaim($1)
   }
-  SOurceCLaimS SOurceCLaim|
+  |SOurceCLaimS SOurceCLaim
   {
   $$=append($1,$2)
   }
-  SOurceCLaimS newLIne;{
+  |SOurceCLaimS newLIne{
   $$=$1
   }
 
@@ -104,11 +104,11 @@ KEyedValue:
   }
 
 KEyedValueLIstONgoing:
-  KEyedValueLIstONgoing KEyedValue |
+  KEyedValueLIstONgoing KEyedValue
   {
   $$.KeyedIDList = append($1.KeyedIDList,$2)
   }
-  '(' KEyedValue
+  |'(' KEyedValue
   {
   $$=&KeyedValueList{}
   $$.KeyedIDList = make([]tycommon.KeyedValue)
