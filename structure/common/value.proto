@@ -1,9 +1,11 @@
 syntax = "proto3";
 package vison.common;
 option go_package = "common";
+import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
 message Value{
   oneof Type {
     string stringValue=1;
     int64 intValue=2;
+    vison.common.ID idValue=3;
   }
 }
