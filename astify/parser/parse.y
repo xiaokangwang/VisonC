@@ -86,8 +86,16 @@ Escape             string
 %%
 
 SOurceCLaimS: SOurceCLaim|
+  {
+  $$=SourceClaimSFromSourceClaim($1)
+  }
   SOurceCLaimS SOurceCLaim|
-  SOurceCLaimS newLIne;
+  {
+  $$=append($1,$2)
+  }
+  SOurceCLaimS newLIne;{
+  $$=$1
+  }
 
 KEyedValue:
   TId ':' VAlue

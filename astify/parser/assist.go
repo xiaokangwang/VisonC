@@ -43,3 +43,9 @@ type SourceClaimC struct {
 	Trait         tycommon.Trait
 	Signal        tycommon.Signal
 }
+
+func SourceClaimSFromSourceClaim(claim SourceClaimC) yySymType {
+	l := make([]SourceClaimC, 1)
+	l[0] = claim
+	return yySymType{SourceClaimS: l}
+}
