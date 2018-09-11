@@ -6,7 +6,7 @@ import "github.com/xiaokangwang/VisonC/structure/common/docking.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
 
 message BlueprintSpec{
-  vison.common.ID BlueprintID = 1;
+  vison.common.NodeOrSignalID BlueprintID = 1;
   repeated vison.common.DataInputDocker dataInputDocker=2;
   repeated vison.common.DataOutputDocker dataOutputDocker=3;
   repeated vison.common.SignalInputDocker SignalInputDocker=4;

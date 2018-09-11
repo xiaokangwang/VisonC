@@ -11,6 +11,13 @@ message SignaledNodeID{
   string name=1;
 }
 
+message NodeOrSignalID{
+  oneof IDType{
+    NodeID node = 1;
+    SignaledNodeID signal = 2;
+  }
+}
+
 message ID{
   string name=1;
 }
