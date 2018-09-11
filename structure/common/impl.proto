@@ -4,5 +4,5 @@ option go_package = "common";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
 message ImplSpec{
   bytes Imprint =1;
-  vison.common.NodeID Blueprint=2;
+  vison.common.NodeOrSignalID Blueprint=2;
 }

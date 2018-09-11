@@ -278,12 +278,26 @@ BLueprintSPec:
 
 IMplSPec:
   IMplSPecONgoing '{'
+  {
+  $$=$1
+  }
 
 
 IMplSPecONgoing:
-  implKeyword SIgnalID|
-  implKeyword NOdeID|
-  implKeyword
+  implKeyword SIgnalID
+  {
+  $$=tycommon.ImplSpec{}
+  $$.Blueprint=$2
+  }
+  |implKeyword NOdeID
+  {
+  $$=tycommon.ImplSpec{}
+  $$.Blueprint=$2
+  }
+  |implKeyword
+  {
+  $$=tycommon.ImplSpec{}
+  }
 
 
 DAtaINputDOcker:
