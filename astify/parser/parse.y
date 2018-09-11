@@ -343,8 +343,14 @@ IMplBLock:
   }
 
 ImpInstructionList:
-  ImpInstructionList newLIne|
-  ImpInstructionList IMpINstruction
+  ImpInstructionList newLIne
+  {
+  $$=$1
+  }
+  |ImpInstructionList IMpINstruction
+  {
+    $$=append($1,$2)
+  }
 
 IMpINstruction:
   IMplDAtaImplSTmt|
