@@ -372,10 +372,36 @@ IMplDAtaImplSTmt:
   }
 
 IMplSIgnalImplSTmt
-  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst |
-  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst|
-  KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst|
+  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst
+  {
+  $$=tyast.SignalImplStmt{}
+  $$.Assignee = $1
+  $$.Invoke = $3
+  $$.Input = $4
+  }
+  |KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst
+  {
+  $$=tyast.SignalImplStmt{}
+  $$.Assignee = $1
+  $$.Invoke = $3
+  $$.Input = $4
+  $$.Wait = $6
+  }
+  |KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+  {
+  $$=tyast.SignalImplStmt{}
+  $$.Assignee = $6
+  $$.Invoke = $3
+  $$.Input = $4
+  $$.Wait = $1
+  }
   SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+  {
+  $$=tyast.SignalImplStmt{}
+  $$.Assignee = $6
+  $$.Invoke = $1
+  $$.Input = $4
+  }
 
 TRaitSElector:
   TRaitSElectorONgoing TRaitSElector newLIne
