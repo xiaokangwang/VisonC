@@ -8,7 +8,7 @@ import tyast "github.com/xiaokangwang/VisonC/structure/ast"
 %union{
 BlueprintSpec      tycommon.BlueprintSpec
 ImplSpec           tycommon.ImplSpec
-ImplBlock          []tyast.ImpInstruction
+ImplBlock          tyast.ImpBlock
 ImpInstruction     tyast.ImpInstruction
 ImpInstructionList []tyast.ImpInstruction
 ImplDataImplStmt   tyast.DataImplStmt
@@ -302,22 +302,45 @@ IMplSPecONgoing:
 
 DAtaINputDOcker:
   inputKeyword TId TRaitSElector
+  {
+  $$=tycommon.DataInputDocker{DockerID:$2,TraitSelector:$3}
+  }
 
 DAtaOUtputDOcker:
   outputKeyword TId TRaitSElector
+  {
+  $$=tycommon.DataOutputDocker{DockerID:$2,TraitSelector:$3}
+  }
 
 SIgnalINputDOcker:
   inputKeyword signalKeyword TId TRaitSElector
+  {
+  $$=tycommon.SignalInputDocker{DockerID:$2,TraitSelector:$3}
+  }
 
 SIgnalOUtputDOcker:
   outputKeyword signalKeyword TId TRaitSElector
+  {
+  $$=tycommon.SignalOutputDocker{DockerID:$2,TraitSelector:$3}
+  }
 
 IMplBLockONgoing:
-  IMplSPec newLIne|
-  IMplSPec
+  IMplSPec newLIne
+  {
+  $$=$1
+  }
+  |IMplSPec
+  {
+  $$=$1
+  }
 
 IMplBLock:
-  IMplBLockONgoing ImpInstructionList }
+  IMplBLockONgoing ImpInstructionList '}'
+  {
+  $$=tyast.ImpBlock{}
+  $$.Spec=$1
+  $$.Ctx=$2
+  }
 
 ImpInstructionList:
   ImpInstructionList newLIne|

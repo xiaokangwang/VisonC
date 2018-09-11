@@ -6,7 +6,7 @@ import tyast "github.com/xiaokangwang/VisonC/structure/ast"
 type SymHolder struct {
 	BlueprintSpec      tycommon.BlueprintSpec
 	ImplSpec           tycommon.ImplSpec
-	ImplBlock          []tyast.ImpInstruction
+	ImplBlock          tyast.ImpBlock
 	ImpInstruction     tyast.ImpInstruction
 	ImpInstructionList []tyast.ImpInstruction
 	ImplDataImplStmt   tyast.DataImplStmt
