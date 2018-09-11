@@ -157,15 +157,30 @@ KEyedIDLIst:
   }
 
 stringConstONgoing:
-  QuoteStart|
-  stringConstONgoing QuoteCtx |
-  stringConstONgoing EscapeStart EscapeCtx
+  QuoteStart
+  {
+  $$=""
+  }
+  |stringConstONgoing QuoteCtx
+  {
+  $$=$1+$2
+  }
+  |stringConstONgoing EscapeStart EscapeCtx
+  {
+  $$=$1+$3
+  }
 
 stringConst:
   stringConstONgoing QuoteEND
+  {
+  $$=$1
+  }
 
 BLueprintSPecONgoing:
   blueprintKeyword
+  {
+  $$=&tycommon.BlueprintSpec{}
+  }
 
 
 BLueprintSPecONgoingS:
