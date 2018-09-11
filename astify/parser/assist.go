@@ -44,8 +44,8 @@ type SourceClaimC struct {
 	Signal        tycommon.Signal
 }
 
-func SourceClaimSFromSourceClaim(claim SourceClaimC) yySymType {
+func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
 	l := make([]SourceClaimC, 1)
 	l[0] = claim
-	return yySymType{SourceClaimS: l}
+	return l
 }

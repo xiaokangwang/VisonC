@@ -99,6 +99,9 @@ SOurceCLaimS: SOurceCLaim|
 
 KEyedValue:
   TId ':' VAlue
+  {
+  $$=tycommon.KeyedValue{Key:$1,Value:$2}
+  }
 
 KEyedValueLIstONgoing:
   KEyedValueLIstONgoing KEyedValue |
