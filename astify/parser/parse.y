@@ -85,10 +85,9 @@ Escape             string
 
 %%
 
-SOurceCLaimS：
-  SOurceCLaim|
+SOurceCLaimS: SOurceCLaim|
   SOurceCLaimS SOurceCLaim|
-  SOurceCLaimS newLIne
+  SOurceCLaimS newLIne;
 
 KEyedValue:
   TId ':' VAlue
