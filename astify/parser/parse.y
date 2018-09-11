@@ -121,19 +121,40 @@ KEyedValueLIst:
   }
 
 VAlue:
-  TId|
-  numberConst|
-  stringConst
+  TId
+  {
+  $$=tycommon.Value_IdValue{IdValue:$1}
+  }
+  |numberConst
+  {
+  $$=tycommon.Value_IntValue{IntValue:$1}
+  }
+  |stringConst
+  {
+  $$=tycommon.Value_StringValue{StringValue:$1}
+  }
 
 KEyedID:
   TId ':' TId
+  {
+  $$=tycommon.KeyedID{Key:$1.Name,Id:$3}
+  }
 
 KEyedIDLIstONgoing:
-  KEyedIDLIstONgoing KEyedID |
-  '{' KEyedID
+  KEyedIDLIstONgoing KEyedID
+  {
+  $$=append($1.KeyedIDList,$2)
+  }
+  |'{' KEyedID
+  {
+  $$=KeyedIDList{KeyedIDList:make([]tycommon.KEyedID)}
+  }
 
 KEyedIDLIst:
   KEyedIDLIstONgoing '}'
+  {
+  $$=$1
+  }
 
 stringConstONgoing:
   QuoteStart|
