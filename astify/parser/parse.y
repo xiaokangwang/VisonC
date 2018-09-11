@@ -185,9 +185,17 @@ BLueprintSPecONgoing:
 
 BLueprintSPecONgoingS:
   BLueprintSPecONgoing SIgnalID
+  {
+  $$=$1
+  $$.BlueprintID = $2
+  }
 
 BLueprintSPecONgoingN:
   BLueprintSPecONgoing NOdeID
+  {
+  $$=$1
+  $$.BlueprintID = $2
+  }
 
 BLueprintSPecONgoingSN:
   BLueprintSPecONgoingS |
