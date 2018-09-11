@@ -364,6 +364,12 @@ IMpINstruction:
 
 IMplDAtaImplSTmt:
   KEyedIDLIst DataAssign NOdeID KEyedValueLIst
+  {
+  $$=tyast.DataImplStmt{}
+  $$.Assignee = $1
+  $$.Invoke = $3
+  $$.Input = $4
+  }
 
 IMplSIgnalImplSTmt
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst |
