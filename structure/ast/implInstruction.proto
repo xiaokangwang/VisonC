@@ -5,6 +5,7 @@ option go_package = "ast";
 
 import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
 
 
 message ImpInstruction{
