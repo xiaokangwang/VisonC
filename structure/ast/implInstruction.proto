@@ -27,7 +27,7 @@ message SignalImplStmt{
   vison.common.KeyedIDList assignee = 1;
   vison.common.SignaledNodeID invoke =2;
   vison.common.KeyedIDList input = 3;
-  repeated vison.common.ID wait =4;
+  vison.common.KeyedIDList wait =4;
 }
 
 message Assign{
