@@ -21,17 +21,17 @@ type SymHolder struct {
 	KeyedValue         tycommon.KeyedValue
 	Value              tycommon.Value
 	String             string
-	TraitSelector      int
-	TraitSpec          int
-	TraitDelcare       int
+	TraitSelector      tycommon.TraitSelectorList
+	TraitSpec          tycommon.Trait
+	TraitDelcare       tycommon.Trait
 	SourceClaim        int
 	SourceClaimS       int
 	Number             int
-	ID                 int
-	SignalID           int
-	NodeID             int
-	Keyword            int
-	Operator           int
-	Quote              int
-	Escape             int
+	ID                 tycommon.ID
+	SignalID           tycommon.SignaledNodeID
+	NodeID             tycommon.NodeID
+	Keyword            string
+	Operator           string
+	Quote              string
+	Escape             string
 }
