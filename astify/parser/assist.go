@@ -39,4 +39,7 @@ type SymHolder struct {
 type SourceClaimC struct {
 	Contain       int
 	BlueprintSpec tycommon.BlueprintSpec
+	ImplBlock     tyast.ImpBlock
+	Trait         tycommon.Trait
+	Signal        tycommon.Signal
 }

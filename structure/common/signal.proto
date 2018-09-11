@@ -7,15 +7,6 @@ import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 
 message Signal{
   vison.common.ID name=1;
-  Props prop =2;
   bytes Imprint = 6;
   repeated vison.common.BlueprintSpec Cap =7;
-}
-
-message Props{
-  repeated Prop prop =1;
-}
-
-message Prop{
-  ID id =1;
 }
