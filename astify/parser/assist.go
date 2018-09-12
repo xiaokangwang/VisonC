@@ -22,7 +22,7 @@ type SymHolder struct {
 	Value              tycommon.Value
 	String             string
 	TraitSelector      tycommon.TraitSelectorList
-	TraitSpec          tycommon.Trait
+	TraitSpec          tycommon.TraitSelector
 	TraitDelcare       tycommon.Trait
 	SourceClaim        SourceClaimC
 	SourceClaimS       []SourceClaimC

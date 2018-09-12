@@ -24,7 +24,7 @@ KeyedValue         tycommon.KeyedValue
 Value              tycommon.Value
 String             string
 TraitSelector      tycommon.TraitSelectorList
-TraitSpec          tycommon.Trait
+TraitSpec          tycommon.TraitSelector
 TraitDelcare       tycommon.Trait
 SourceClaim        SourceClaimC
 SourceClaimS       []SourceClaimC
@@ -404,15 +404,34 @@ IMplSIgnalImplSTmt
   }
 
 TRaitSElector:
-  TRaitSElectorONgoing TRaitSElector newLIne
+  TRaitSElectorONgoing '>'
+  {
+  $$=$1
+  }
 
 TRaitSElectorONgoing:
   '<'|
+  {
+  $$=tycommon.TraitSelectorList{}
+  $$.TraitSelectorList = make([]*TraitSelector)
+  }
   TRaitSElectorONgoing TRaitSPec
+  {
+  $$.TraitSelectorList = append($$.TraitSelectorList,$2)
+  }
 
 TRaitSPec:
-  TId KEyedValueLIst|
-  TId
+  TId KEyedValueLIst
+  {
+  $$=tycommon.TraitSelector{}
+  $$.TraitID=$1
+  $$.KeyedidList=$2
+  }
+  |TId
+  {
+  $$=tycommon.TraitSelector{}
+  $$.TraitID=$1
+  }
 
 TRaitDElcareHEad:
   traitKeyword TId|
