@@ -447,13 +447,30 @@ TRaitDElcareHEad:
   }
 
 TRaitDElcareBOdy:
-  TRaitDElcareBOdy newLIne|
-  TRaitDElcareBOdy propKeyword TId TRaitSElector|
-  TRaitDElcareBOdy BLueprintSPec|
-  TRaitDElcareBOdy BLueprintSPec IMplBLock
+  '{'
+  {
+  $$=tycommon.Trait{}
+  $$.Prop=tycommon.Props{}
+  $$.Prop.Prop = make([]tycommon.Prop)
+  $$.Cap = make([]tycommon.BlueprintSpec)
+  }
+  |TRaitDElcareBOdy newLIne
+  {
+  $$=$1
+  }
+  |TRaitDElcareBOdy propKeyword TId TRaitSElector
+  {
+  $$=$1
+  $$.Prop.Prop=append($$.Prop.Prop,tycommon.Prop{Id:$3,Trait:$4})
+  }
+  |TRaitDElcareBOdy BLueprintSPec
+  {
+  
+  }
+  |TRaitDElcareBOdy BLueprintSPec IMplBLock
 
 TRaitDElcare:
-  TRaitDElcareHEad '{' TRaitDElcareBOdy '}'
+  TRaitDElcareHEad TRaitDElcareBOdy '}'
 
 SIgnalDEclareHEad:
   signalKeyword TId|

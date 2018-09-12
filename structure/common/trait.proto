@@ -3,12 +3,15 @@ package vison.common;
 option go_package = "common";
 import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
+import "github.com/xiaokangwang/VisonC/structure/ast/implInstuction.proto";
 
 message Trait{
   vison.common.ID traitID =1;
   vison.common.ID traitImplID =5;
   Props prop =4;
   repeated vison.common.BlueprintSpec Cap =2;
+  repeated vison.ast.ImpBlock CapImpl =2;
   repeated vison.common.ID conformsTraitID =3;
 }
 message Props{
@@ -17,4 +20,5 @@ message Props{
 
 message Prop{
   ID id =1;
+  vison.common.TraitSelector trait =2;
 }
