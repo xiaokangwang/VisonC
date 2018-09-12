@@ -453,6 +453,7 @@ TRaitDElcareBOdy:
   $$.Prop=tycommon.Props{}
   $$.Prop.Prop = make([]tycommon.Prop)
   $$.Cap = make([]tycommon.BlueprintSpec)
+  $$.CapImpl = make([]tyast.ImpBlock)
   }
   |TRaitDElcareBOdy newLIne
   {
@@ -465,9 +466,14 @@ TRaitDElcareBOdy:
   }
   |TRaitDElcareBOdy BLueprintSPec
   {
-  
+  $$.Cap = append($$.Cap,$2)
+  $$.CapImpl = append($$.CapImpl,nil)
   }
   |TRaitDElcareBOdy BLueprintSPec IMplBLock
+  {
+  $$.Cap = append($$.Cap,$2)
+  $$.CapImpl = append($$.CapImpl,$3)
+  }
 
 TRaitDElcare:
   TRaitDElcareHEad TRaitDElcareBOdy '}'
