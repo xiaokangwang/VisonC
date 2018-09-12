@@ -24,6 +24,7 @@ type SymHolder struct {
 	TraitSelector      tycommon.TraitSelectorList
 	TraitSpec          tycommon.TraitSelector
 	TraitDelcare       tycommon.Trait
+	SignalDelcare      tycommon.Signal
 	SourceClaim        SourceClaimC
 	SourceClaimS       []SourceClaimC
 	Number             int

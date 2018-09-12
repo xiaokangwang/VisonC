@@ -4,14 +4,14 @@ option go_package = "common";
 import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";
-import "github.com/xiaokangwang/VisonC/structure/ast/implInstruction.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/implInstruction.proto";
 
 message Trait{
   vison.common.ID traitID =1;
   vison.common.ID traitImplID =5;
   Props prop =4;
   repeated vison.common.BlueprintSpec Cap =2;
-  repeated vison.ast.ImpBlock CapImpl =6;
+  repeated vison.common.ImpBlock CapImpl =6;
   repeated vison.common.ID conformsTraitID =3;
 }
 message Props{

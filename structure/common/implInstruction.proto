@@ -1,6 +1,6 @@
 syntax = "proto3";
-package vison.ast;
-option go_package = "ast";
+package vison.common;
+option go_package = "common";
 
 
 import "github.com/xiaokangwang/VisonC/structure/common/compound.proto";

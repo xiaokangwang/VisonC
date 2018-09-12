@@ -2,17 +2,16 @@
 package parser
 
 import tycommon "github.com/xiaokangwang/VisonC/structure/common"
-import tyast "github.com/xiaokangwang/VisonC/structure/ast"
 %}
 
 %union{
 BlueprintSpec      tycommon.BlueprintSpec
 ImplSpec           tycommon.ImplSpec
-ImplBlock          tyast.ImpBlock
-ImpInstruction     tyast.ImpInstruction
-ImpInstructionList []tyast.ImpInstruction
-ImplDataImplStmt   tyast.DataImplStmt
-ImplSignalImplStmt tyast.SignalImplStmt
+ImplBlock          tycommon.ImpBlock
+ImpInstruction     tycommon.ImpInstruction
+ImpInstructionList []tycommon.ImpInstruction
+ImplDataImplStmt   tycommon.DataImplStmt
+ImplSignalImplStmt tycommon.SignalImplStmt
 DataInputDocker    tycommon.DataInputDocker
 DataOutputDocker   tycommon.DataOutputDocker
 SignalInputDocker  tycommon.SignalInputDocker
@@ -337,7 +336,7 @@ IMplBLockONgoing:
 IMplBLock:
   IMplBLockONgoing ImpInstructionList '}'
   {
-  $$=tyast.ImpBlock{}
+  $$=tycommon.ImpBlock{}
   $$.Spec=$1
   $$.Ctx=$2
   }
@@ -365,7 +364,7 @@ IMpINstruction:
 IMplDAtaImplSTmt:
   KEyedIDLIst DataAssign NOdeID KEyedValueLIst
   {
-  $$=tyast.DataImplStmt{}
+  $$=tycommon.DataImplStmt{}
   $$.Assignee = $1
   $$.Invoke = $3
   $$.Input = $4
@@ -374,14 +373,14 @@ IMplDAtaImplSTmt:
 IMplSIgnalImplSTmt
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst
   {
-  $$=tyast.SignalImplStmt{}
+  $$=tycommon.SignalImplStmt{}
   $$.Assignee = $1
   $$.Invoke = $3
   $$.Input = $4
   }
   |KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst
   {
-  $$=tyast.SignalImplStmt{}
+  $$=tycommon.SignalImplStmt{}
   $$.Assignee = $1
   $$.Invoke = $3
   $$.Input = $4
@@ -389,7 +388,7 @@ IMplSIgnalImplSTmt
   }
   |KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
   {
-  $$=tyast.SignalImplStmt{}
+  $$=tycommon.SignalImplStmt{}
   $$.Assignee = $6
   $$.Invoke = $3
   $$.Input = $4
@@ -397,7 +396,7 @@ IMplSIgnalImplSTmt
   }
   SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
   {
-  $$=tyast.SignalImplStmt{}
+  $$=tycommon.SignalImplStmt{}
   $$.Assignee = $6
   $$.Invoke = $1
   $$.Input = $4
@@ -452,7 +451,7 @@ TRaitDElcareBOdy:
   $$.Prop=tycommon.Props{}
   $$.Prop.Prop = make([]tycommon.Prop)
   $$.Cap = make([]tycommon.BlueprintSpec)
-  $$.CapImpl = make([]tyast.ImpBlock)
+  $$.CapImpl = make([]tycommon.ImpBlock)
   }
   |TRaitDElcareBOdy newLIne
   {
