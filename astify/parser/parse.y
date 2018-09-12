@@ -438,12 +438,11 @@ TRaitDElcareHEad:
   {
   $$=tycommon.Trait{}
   $$.TraitID=$2
+  $$.ConformsTraitID=make([]tycommon.ID)
   }
-  |traitKeyword TId implKeyword TId
+  |TRaitDElcareHEad implKeyword TId
   {
-  $$=tycommon.Trait{}
-  $$.TraitID=$2
-  $$.TraitImplID = $4
+  $$.ConformsTraitID=append($$.ConformsTraitID,$3)
   }
 
 TRaitDElcareBOdy:
@@ -477,13 +476,19 @@ TRaitDElcareBOdy:
 
 TRaitDElcare:
   TRaitDElcareHEad TRaitDElcareBOdy '}'
+  {
+    $$=$2
+    $$.TraitID=$1.TraitID
+    $$.TraitImplID=$1.TraitImplID
+    $$.ConformsTraitID=$1.ConformsTraitID
+  }
 
 SIgnalDEclareHEad:
   signalKeyword TId|
   signalKeyword TId implKeyword TId
 
 SIgnalDEclare:
-  SIgnalDEclareHEad '{' TRaitDElcareBOdy '}'
+  SIgnalDEclareHEad  TRaitDElcareBOdy '}'
 
 
 
