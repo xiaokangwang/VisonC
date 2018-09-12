@@ -483,11 +483,22 @@ TRaitDElcare:
   }
 
 SIgnalDEclareHEad:
-  signalKeyword TId|
-  signalKeyword TId implKeyword TId
+  signalKeyword TId
+  {
+  $$=tycommon.Signal{}
+  $$.Name=$2
+  }
+  |SIgnalDEclareHEad implKeyword TId
+  {
+  $$=$1
+  }
 
 SIgnalDEclare:
   SIgnalDEclareHEad  TRaitDElcareBOdy '}'
+  {
+  $$=$1
+  $$.Cap=$2.Cap
+  }
 
 
 
