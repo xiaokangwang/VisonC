@@ -434,8 +434,17 @@ TRaitSPec:
   }
 
 TRaitDElcareHEad:
-  traitKeyword TId|
-  traitKeyword TId implKeyword TId
+  traitKeyword TId
+  {
+  $$=tycommon.Trait{}
+  $$.TraitID=$2
+  }
+  |traitKeyword TId implKeyword TId
+  {
+  $$=tycommon.Trait{}
+  $$.TraitID=$2
+  $$.TraitImplID = $4
+  }
 
 TRaitDElcareBOdy:
   TRaitDElcareBOdy newLIne|
