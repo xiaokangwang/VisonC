@@ -37,7 +37,7 @@ Quote              string
 Escape             string
 }
 
-%type <BlueprintSpec> BLueprintSPec BLueprintSPecONgoing BLueprintSPecONgoingS BLueprintSPecONgoingN BLueprintSPecONgoingSN BLueprintSPecONgoingSNIoONgoing
+%type <BlueprintSpec> BLueprintSPec BLueprintSPecONgoing BLueprintSPecONgoingS BLueprintSPecONgoingN BLueprintSPecONgoingSN BLueprintSPecONgoingSNIo BLueprintSPecONgoingSNIoONgoing
 %type <ImplSpec> IMplSPec  IMplSPecONgoing
 %type <ImplBlock> IMplBLock IMplBLockONgoing
 %type <ImpInstruction> IMpINstruction
@@ -60,7 +60,7 @@ Escape             string
 
 %type <String> stringConst stringConstONgoing
 
-%type <TraitSelector> TRaitSElector
+%type <TraitSelector> TRaitSElector TRaitSElectorONgoing
 
 %type <TraitSpec> TRaitSPec
 
@@ -334,19 +334,23 @@ IMplBLockONgoing:
   }
 
 IMplBLock:
-  IMplBLockONgoing ImpInstructionList '}'
+  IMplBLockONgoing IMpINstructionLIst '}'
   {
   $$=tycommon.ImpBlock{}
   $$.Spec=$1
   $$.Ctx=$2
   }
 
-ImpInstructionList:
-  ImpInstructionList newLIne
+IMpINstructionLIst:
+  '{'
+  {
+  $$=make([]tycommon.ImpInstruction)
+  }
+  |IMpINstructionLIst newLIne
   {
   $$=$1
   }
-  |ImpInstructionList IMpINstruction
+  |IMpINstructionLIst IMpINstruction
   {
     $$=append($1,$2)
   }
@@ -370,7 +374,7 @@ IMplDAtaImplSTmt:
   $$.Input = $4
   }
 
-IMplSIgnalImplSTmt
+IMplSIgnalImplSTmt:
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst
   {
   $$=tycommon.SignalImplStmt{}
@@ -409,12 +413,12 @@ TRaitSElector:
   }
 
 TRaitSElectorONgoing:
-  '<'|
+  '<'
   {
   $$=tycommon.TraitSelectorList{}
   $$.TraitSelectorList = make([]*TraitSelector)
   }
-  TRaitSElectorONgoing TRaitSPec
+  |TRaitSElectorONgoing TRaitSPec
   {
   $$.TraitSelectorList = append($$.TraitSelectorList,$2)
   }
