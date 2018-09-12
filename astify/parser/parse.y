@@ -503,7 +503,23 @@ SIgnalDEclare:
 
 
 SOurceCLaim:
-  TRaitDElcare|
-  SIgnalDEclare|
-  BLueprintSPec|
-  IMplBLock
+  TRaitDElcare
+  {
+  $$.Contain=1
+  $$.Trait=$1
+  }
+  |SIgnalDEclare
+  {
+  $$.Contain=2
+  $$.Signal=$1
+  }
+  |BLueprintSPec
+  {
+  $$.Contain=3
+  $$.BlueprintSpec=$1
+  }
+  |IMplBLock
+  {
+  $$.Contain=4
+  $$.ImplBlock=$1
+  }
