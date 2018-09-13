@@ -1,6 +1,6 @@
 trait vector2{
 
-blueprint add(
+blueprint Padd(
 input a <vector2>
 input b <vector2>
 output c <vector2>

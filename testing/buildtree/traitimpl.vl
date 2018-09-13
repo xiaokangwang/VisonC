@@ -1,14 +1,14 @@
-trait Simplevect2 impl vector2{
+trait simplevect2 impl vector2{
 
 prop x <primary(_constraint_typeGroup:valtype)>
 prop y <primary(_constraint_typeGroup:valtype)>
 
-blueprint add(
+blueprint Padd(
 input a <vector2>
 input b <vector2>
 output c <vector2>
 )impl{
-c:=<primary>add(a,b)
+{c}:=<primary>Padd(a,b)
 }
 
 }

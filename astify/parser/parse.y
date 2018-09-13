@@ -145,13 +145,17 @@ KEyedID:
   {
   $$=tycommon.KeyedID{Key:$1.Name,Id:&$3}
   }
+  |TId
+  {
+  $$=tycommon.KeyedID{Id:&$1}
+  }
 
 KEyedIDLIstONgoing:
   KEyedIDLIstONgoing KEyedID
   {
   $$.KeyedIDList=append($1.KeyedIDList,&$2)
   }
-  |'{' KEyedID
+  |'{'
   {
   $$=tycommon.KeyedIDList{KeyedIDList:make([]*tycommon.KeyedID,0)}
   }
@@ -353,9 +357,10 @@ IMplBLock:
   }
 
 IMpINstructionLIst:
-  '{'
+  IMpINstruction
   {
-  $$=make([]*tycommon.ImpInstruction,0)
+  $$=make([]*tycommon.ImpInstruction,1)
+  $$[0]=&$1
   }
   |IMpINstructionLIst newLIne
   {

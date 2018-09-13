@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"strconv"
 
 	lexer "github.com/xiaokangwang/VisonC/astify/lexer"
@@ -16,6 +17,8 @@ type SourceClaimC struct {
 }
 
 func ConstructClaim(token []*lexer.ParsedToken) []SourceClaimC {
+	yyDebug = 8
+	yyErrorVerbose = true
 	lexer := &LexHolder{Payload: token}
 	yyParse(lexer)
 	return *lexer.Tracker
@@ -34,7 +37,7 @@ type LexHolder struct {
 }
 
 func (lh *LexHolder) Error(s string) {
-	panic(s)
+	fmt.Println(s)
 }
 func (lh *LexHolder) Lex(lval *yySymType) int {
 	if lh.Current == len(lh.Payload) {
