@@ -16,7 +16,9 @@ type SourceClaimC struct {
 }
 
 func ConstructClaim(token []lexer.ParsedToken) []SourceClaimC {
-
+	lexer := &LexHolder{Payload: token}
+	yyParse(lexer)
+	return *lexer.Tracker
 }
 
 func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
@@ -38,6 +40,7 @@ func (lh *LexHolder) Lex(lval *yySymType) int {
 	if lh.Current == len(lh.Payload) {
 		return 0
 	}
+	lval.Tracker = &lh.Tracker
 	sub := lh.Payload[lh.Current]
 	lh.Current++
 	switch sub.Type {
