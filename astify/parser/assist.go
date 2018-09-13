@@ -26,6 +26,9 @@ type LexHolder struct {
 	Current int
 }
 
+func (lh *LexHolder) Error(s string) {
+	panic(s)
+}
 func (lh *LexHolder) Lex(lval *yySymType) int {
 	if lh.Current == len(lh.Payload) {
 		return 0
