@@ -528,7 +528,7 @@ SIgnalDEclare:
     TRaitSElector NOdeID
     {
     $$=$2
-    $$.Trait=$1.TraitSelectorList[0].ID.Name
+    $$.Trait=$1.TraitSelectorList[0].TraitID.Name
     }
     |NOdeID
     {
@@ -539,7 +539,7 @@ SIgnalDEclare:
     TRaitSElector SIgnalID
     {
     $$=$2
-    $$.Trait=$1.TraitSelectorList[0].ID.Name
+    $$.Trait=$1.TraitSelectorList[0].TraitID.Name
     }
     |SIgnalID
     {
