@@ -1,40 +1,11 @@
 package parser
 
-import tycommon "github.com/xiaokangwang/VisonC/structure/common"
+import (
+	"strconv"
 
-type SymHolder struct {
-	BlueprintSpec      tycommon.BlueprintSpec
-	ImplSpec           tycommon.ImplSpec
-	ImplBlock          tycommon.ImpBlock
-	ImpInstruction     tycommon.ImpInstruction
-	ImpInstructionList []tycommon.ImpInstruction
-	ImplDataImplStmt   tycommon.DataImplStmt
-	ImplSignalImplStmt tycommon.SignalImplStmt
-	DataInputDocker    tycommon.DataInputDocker
-	DataOutputDocker   tycommon.DataOutputDocker
-	SignalInputDocker  tycommon.SignalInputDocker
-	SignalOutputDocker tycommon.SignalOutputDocker
-	KeyedIDList        tycommon.KeyedIDList
-	KeyedID            tycommon.KeyedID
-	KeyedValueList     tycommon.KeyedValueList
-	KeyedValue         tycommon.KeyedValue
-	Value              tycommon.Value
-	String             string
-	TraitSelector      tycommon.TraitSelectorList
-	TraitSpec          tycommon.TraitSelector
-	TraitDelcare       tycommon.Trait
-	SignalDelcare      tycommon.Signal
-	SourceClaim        SourceClaimC
-	SourceClaimS       []SourceClaimC
-	Number             int
-	ID                 tycommon.ID
-	SignalID           tycommon.SignaledNodeID
-	NodeID             tycommon.NodeID
-	Keyword            string
-	Operator           string
-	Quote              string
-	Escape             string
-}
+	lexer "github.com/xiaokangwang/VisonC/astify/lexer"
+	tycommon "github.com/xiaokangwang/VisonC/structure/common"
+)
 
 type SourceClaimC struct {
 	Contain       int
@@ -48,4 +19,73 @@ func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
 	l := make([]SourceClaimC, 1)
 	l[0] = claim
 	return l
+}
+
+type LexHolder struct {
+	Payload []lexer.ParsedToken
+	Current int
+}
+
+func (lh *LexHolder) Lex(lval *yySymType) int {
+	if lh.Current == len(lh.Payload) {
+		return 0
+	}
+	sub := lh.Payload[lh.Current]
+	lh.Current++
+	switch sub.Type {
+	case "Signal":
+		lval.SignalID.Name = sub.Content
+		return SIgnalID
+	case "Process":
+		lval.NodeID.Name = sub.Content
+		return NOdeID
+	case "ID":
+		lval.ID.Name = sub.Content
+		return TId
+	case "NUMBER":
+		lval.Number, _ = strconv.Atoi(sub.Content)
+		return numberConst
+	case "QUOTESTART":
+		return QuoteStart
+	case "ESCAPESTART":
+		return EscapeStart
+	case "QUOTECTX":
+		lval.Quote = sub.Content
+		return QuoteCtx
+	case "QUOTEEND":
+		return QuoteEND
+	case "ESCAPE":
+		lval.Escape = sub.Content
+		return EscapeCtx
+	case ":=":
+		return DataAssign
+	case "<=":
+		return SignalAssignL
+	case "=>":
+		return SignalAssignR
+	case "<<":
+		return WaitUntilL
+	case ">>":
+		return WaitUntilR
+	case "input":
+		return inputKeyword
+	case "output":
+		return outputKeyword
+	case "signal":
+		return signalKeyword
+	case "trait":
+		return traitKeyword
+	case "prop":
+		return propKeyword
+	case "impl":
+		return implKeyword
+	case "join":
+		return joinKeyword
+	case "newline":
+		return newLIne
+	case "SINGLE":
+		return int(sub.Content[0])
+	default:
+		panic(sub)
+	}
 }
