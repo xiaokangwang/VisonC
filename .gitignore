@@ -13,3 +13,4 @@
 
 *.pb.go
 *.yy.go
+*.y.go
