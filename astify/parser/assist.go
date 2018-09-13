@@ -81,6 +81,8 @@ func (lh *LexHolder) Lex(lval *yySymType) int {
 		return implKeyword
 	case "join":
 		return joinKeyword
+	case "blueprint":
+		return blueprintKeyword
 	case "newline":
 		return newLIne
 	case "SINGLE":
