@@ -1,3 +1,3 @@
 prepare:
-	cd structure; ${MAKE} gen
+	cd structure; ${MAKE} pb
 	cd astify; ${MAKE} gen

@@ -15,6 +15,10 @@ type SourceClaimC struct {
 	Signal        tycommon.Signal
 }
 
+func ConstructClaim(token []lexer.ParsedToken) []SourceClaimC {
+
+}
+
 func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
 	l := make([]SourceClaimC, 1)
 	l[0] = claim
@@ -24,6 +28,7 @@ func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
 type LexHolder struct {
 	Payload []lexer.ParsedToken
 	Current int
+	Tracker *([]SourceClaimC)
 }
 
 func (lh *LexHolder) Error(s string) {

@@ -36,6 +36,7 @@ Keyword            string
 Operator           string
 Quote              string
 Escape             string
+Tracker            **([]SourceClaimC)
 }
 
 %type <BlueprintSpec> BLueprintSPec BLueprintSPecONgoing BLueprintSPecONgoingS BLueprintSPecONgoingN BLueprintSPecONgoingSN BLueprintSPecONgoingSNIo BLueprintSPecONgoingSNIoONgoing
@@ -90,13 +91,16 @@ Escape             string
 SOurceCLaimS: SOurceCLaim
   {
   $$=SourceClaimSFromSourceClaim($1)
+  (*yyDollar[1].Tracker)=&$$
   }
   |SOurceCLaimS SOurceCLaim
   {
   $$=append($1,$2)
+  (*yyDollar[1].Tracker)=&$$
   }
   |SOurceCLaimS newLIne{
   $$=$1
+  (*yyDollar[1].Tracker)=&$$
   }
 
 KEyedValue:
