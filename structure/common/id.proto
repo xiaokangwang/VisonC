@@ -5,10 +5,12 @@ option go_package = "common";
 
 message NodeID{
   string name=1;
+  string trait=2;
 }
 
 message SignaledNodeID{
   string name=1;
+  string trait=2;
 }
 
 message NodeOrSignalID{

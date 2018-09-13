@@ -74,6 +74,10 @@ Tracker            **([]SourceClaimC)
 
 %type <SourceClaimS> SOurceCLaimS
 
+
+%type <SignalID> SIgnalIDWIthTRait
+%type <NodeID> NOdeIDWIthTRait
+
 %token <Number> numberConst
 
 %token <ID> TId
@@ -382,7 +386,7 @@ IMpINstruction:
   }
 
 IMplDAtaImplSTmt:
-  KEyedIDLIst DataAssign NOdeID KEyedValueLIst
+  KEyedIDLIst DataAssign NOdeIDWIthTRait KEyedValueLIst
   {
   $$=tycommon.DataImplStmt{}
   $$.Assignee = &$1
@@ -391,14 +395,14 @@ IMplDAtaImplSTmt:
   }
 
 IMplSIgnalImplSTmt:
-  KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst
+  KEyedIDLIst SignalAssignL SIgnalIDWIthTRait KEyedValueLIst
   {
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$1
   $$.Invoke = &$3
   $$.Input = &$4
   }
-  |KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst
+  |KEyedIDLIst SignalAssignL SIgnalIDWIthTRait KEyedValueLIst WaitUntilL KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$1
@@ -406,7 +410,7 @@ IMplSIgnalImplSTmt:
   $$.Input = &$4
   $$.Wait = &$6
   }
-  |KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+  |KEyedIDLIst WaitUntilR SIgnalIDWIthTRait KEyedValueLIst SignalAssignR KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$6
@@ -414,7 +418,7 @@ IMplSIgnalImplSTmt:
   $$.Input = &$4
   $$.Wait = &$1
   }
-  |SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+  |SIgnalIDWIthTRait KEyedValueLIst SignalAssignR KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$4
@@ -519,6 +523,28 @@ SIgnalDEclare:
   $$=$1
   $$.Cap=$2.Cap
   }
+
+  NOdeIDWIthTRait:
+    TRaitSElector NOdeID
+    {
+    $$=$2
+    $$.Trait=$1.TraitSelectorList[0].ID.Name
+    }
+    |NOdeID
+    {
+    $$=$1
+    }
+
+  SIgnalIDWIthTRait:
+    TRaitSElector SIgnalID
+    {
+    $$=$2
+    $$.Trait=$1.TraitSelectorList[0].ID.Name
+    }
+    |SIgnalID
+    {
+    $$=$1
+    }
 
 
 
