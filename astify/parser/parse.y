@@ -136,17 +136,17 @@ VAlue:
 KEyedID:
   TId ':' TId
   {
-  $$=tycommon.KeyedID{Key:$1.Name,Id:$3}
+  $$=tycommon.KeyedID{Key:$1.Name,Id:&$3}
   }
 
 KEyedIDLIstONgoing:
   KEyedIDLIstONgoing KEyedID
   {
-  $$=append($1.KeyedIDList,$2)
+  $$.KeyedIDList=append($1.KeyedIDList,&$2)
   }
   |'{' KEyedID
   {
-  $$=KeyedIDList{KeyedIDList:make([]tycommon.KEyedID)}
+  $$=tycommon.KeyedIDList{KeyedIDList:make([]*tycommon.KeyedID,0)}
   }
 
 KEyedIDLIst:
@@ -178,7 +178,7 @@ stringConst:
 BLueprintSPecONgoing:
   blueprintKeyword
   {
-  $$=&tycommon.BlueprintSpec{}
+  $$=tycommon.BlueprintSpec{}
   }
 
 
@@ -186,14 +186,16 @@ BLueprintSPecONgoingS:
   BLueprintSPecONgoing SIgnalID
   {
   $$=$1
-  $$.BlueprintID = $2
+  $$.BlueprintID=&tycommon.NodeOrSignalID{}
+  $$.BlueprintID.IDType = &tycommon.NodeOrSignalID_Signal{&$2}
   }
 
 BLueprintSPecONgoingN:
   BLueprintSPecONgoing NOdeID
   {
   $$=$1
-  $$.BlueprintID = $2
+  $$.BlueprintID=&tycommon.NodeOrSignalID{}
+  $$.BlueprintID.IDType = &tycommon.NodeOrSignalID_Node{&$2}
   }
 
 BLueprintSPecONgoingSN:
@@ -228,33 +230,33 @@ BLueprintSPecONgoingSNIoONgoing:
   {
   $$=$1
   if $$.DataInputDocker == nil {
-    $$.DataInputDocker =  make([]*tycommon.DataInputDocker)
+    $$.DataInputDocker =  make([]*tycommon.DataInputDocker,0)
   }
-  $$.DataInputDocker = append($$.DataInputDocker,$2)
+  $$.DataInputDocker = append($$.DataInputDocker,&$2)
   }
   |BLueprintSPecONgoingSNIoONgoing DAtaOUtputDOcker
   {
   $$=$1
   if $$.DataOutputDocker == nil {
-    $$.DataOutputDocker =  make([]*tycommon.DataOutputDocker)
+    $$.DataOutputDocker =  make([]*tycommon.DataOutputDocker,0)
   }
-  $$.DataOutputDocker = append($$.DataOutputDocker,$2)
+  $$.DataOutputDocker = append($$.DataOutputDocker,&$2)
   }
   |BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker
   {
   $$=$1
   if $$.SignalInputDocker == nil {
-    $$.SignalInputDocker =  make([]*tycommon.SignalInputDocker)
+    $$.SignalInputDocker =  make([]*tycommon.SignalInputDocker,0)
   }
-  $$.SignalInputDocker = append($$.SignalInputDocker,$2)
+  $$.SignalInputDocker = append($$.SignalInputDocker,&$2)
   }
   |BLueprintSPecONgoingSNIoONgoing SIgnalOUtputDOcker
   {
   $$=$1
   if $$.SignalOutputDocker == nil {
-    $$.SignalOutputDocker =  make([]*tycommon.SignalOutputDocker)
+    $$.SignalOutputDocker =  make([]*tycommon.SignalOutputDocker,0)
   }
-  $$.SignalOutputDocker = append($$.SignalOutputDocker,$2)
+  $$.SignalOutputDocker = append($$.SignalOutputDocker,&$2)
   }
 
 BLueprintSPecONgoingSNIo:
@@ -286,12 +288,14 @@ IMplSPecONgoing:
   implKeyword SIgnalID
   {
   $$=tycommon.ImplSpec{}
-  $$.Blueprint=$2
+  $$.Blueprint=&tycommon.NodeOrSignalID{}
+  $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Signal{&$2}
   }
   |implKeyword NOdeID
   {
   $$=tycommon.ImplSpec{}
-  $$.Blueprint=$2
+  $$.Blueprint=&tycommon.NodeOrSignalID{}
+  $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Node{&$2}
   }
   |implKeyword
   {
