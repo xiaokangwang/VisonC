@@ -99,22 +99,22 @@ SOurceCLaimS: SOurceCLaim
 KEyedValue:
   TId ':' VAlue
   {
-  $$=tycommon.KeyedValue{Key:$1,Value:$2}
+  $$=tycommon.KeyedValue{Key:&$1,Value:&$3}
   }
 
 KEyedValueLIstONgoing:
   KEyedValueLIstONgoing KEyedValue
   {
-  $$.KeyedIDList = append($1.KeyedIDList,$2)
+  $$.KeyedIDList = append($1.KeyedIDList,&$2)
   }
   |'(' KEyedValue
   {
-  $$=&KeyedValueList{}
-  $$.KeyedIDList = make([]tycommon.KeyedValue)
+  $$=tycommon.KeyedValueList{}
+  $$.KeyedIDList = make([]*tycommon.KeyedValue,0)
   }
 
 KEyedValueLIst:
-  KEyedIDLIstONgoing ')'
+  KEyedValueLIstONgoing ')'
   {
   $$=$1
   }
@@ -122,15 +122,15 @@ KEyedValueLIst:
 VAlue:
   TId
   {
-  $$=tycommon.Value_IdValue{IdValue:$1}
+  $$.Type=&tycommon.Value_IdValue{IdValue:&$1}
   }
   |numberConst
   {
-  $$=tycommon.Value_IntValue{IntValue:$1}
+  $$.Type=&tycommon.Value_IntValue{IntValue:int64($1)}
   }
   |stringConst
   {
-  $$=tycommon.Value_StringValue{StringValue:$1}
+  $$.Type=&tycommon.Value_StringValue{StringValue:$1}
   }
 
 KEyedID:

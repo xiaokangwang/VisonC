@@ -12,7 +12,7 @@ message KeyedID{
 }
 
 message KeyedValue{
-  string key =1;
+  vison.common.ID key =1;
   vison.common.Value value=2;
 }
 
