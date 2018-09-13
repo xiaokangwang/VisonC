@@ -9,7 +9,7 @@ BlueprintSpec      tycommon.BlueprintSpec
 ImplSpec           tycommon.ImplSpec
 ImplBlock          tycommon.ImpBlock
 ImpInstruction     tycommon.ImpInstruction
-ImpInstructionList []tycommon.ImpInstruction
+ImpInstructionList []*tycommon.ImpInstruction
 ImplDataImplStmt   tycommon.DataImplStmt
 ImplSignalImplStmt tycommon.SignalImplStmt
 DataInputDocker    tycommon.DataInputDocker
@@ -25,6 +25,7 @@ String             string
 TraitSelector      tycommon.TraitSelectorList
 TraitSpec          tycommon.TraitSelector
 TraitDelcare       tycommon.Trait
+SignalDelcare      tycommon.Signal
 SourceClaim        SourceClaimC
 SourceClaimS       []SourceClaimC
 Number             int
@@ -64,7 +65,9 @@ Escape             string
 
 %type <TraitSpec> TRaitSPec
 
-%type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy SIgnalDEclare SIgnalDEclareHEad
+%type <TraitDelcare> TRaitDElcare TRaitDElcareHEad TRaitDElcareBOdy
+
+%type <SignalDelcare>  SIgnalDEclare SIgnalDEclareHEad
 
 %type <SourceClaim> SOurceCLaim
 
@@ -306,49 +309,49 @@ IMplSPecONgoing:
 DAtaINputDOcker:
   inputKeyword TId TRaitSElector
   {
-  $$=tycommon.DataInputDocker{DockerID:$2,TraitSelector:$3}
+  $$=tycommon.DataInputDocker{DockerID:&$2,TraitSelector:&$3}
   }
 
 DAtaOUtputDOcker:
   outputKeyword TId TRaitSElector
   {
-  $$=tycommon.DataOutputDocker{DockerID:$2,TraitSelector:$3}
+  $$=tycommon.DataOutputDocker{DockerID:&$2,TraitSelector:&$3}
   }
 
 SIgnalINputDOcker:
   inputKeyword signalKeyword TId TRaitSElector
   {
-  $$=tycommon.SignalInputDocker{DockerID:$2,TraitSelector:$3}
+  $$=tycommon.SignalInputDocker{DockerID:&$3,TraitSelector:&$4}
   }
 
 SIgnalOUtputDOcker:
   outputKeyword signalKeyword TId TRaitSElector
   {
-  $$=tycommon.SignalOutputDocker{DockerID:$2,TraitSelector:$3}
+  $$=tycommon.SignalOutputDocker{DockerID:&$3,TraitSelector:&$4}
   }
 
 IMplBLockONgoing:
-  IMplSPec newLIne
+  IMplBLockONgoing newLIne
   {
   $$=$1
   }
   |IMplSPec
   {
-  $$=$1
+  $$.Spec=&$1
   }
 
 IMplBLock:
   IMplBLockONgoing IMpINstructionLIst '}'
   {
   $$=tycommon.ImpBlock{}
-  $$.Spec=$1
+  $$.Spec=$1.Spec
   $$.Ctx=$2
   }
 
 IMpINstructionLIst:
   '{'
   {
-  $$=make([]tycommon.ImpInstruction)
+  $$=make([]*tycommon.ImpInstruction,0)
   }
   |IMpINstructionLIst newLIne
   {
@@ -356,58 +359,58 @@ IMpINstructionLIst:
   }
   |IMpINstructionLIst IMpINstruction
   {
-    $$=append($1,$2)
+    $$=append($1,&$2)
   }
 
 IMpINstruction:
   IMplDAtaImplSTmt
   {
-  $$=$1
+  $$.InstrType=&tycommon.ImpInstruction_Data{&$1}
   }
   |IMplSIgnalImplSTmt
   {
-  $$=$1
+  $$.InstrType=&tycommon.ImpInstruction_Signall{&$1}
   }
 
 IMplDAtaImplSTmt:
   KEyedIDLIst DataAssign NOdeID KEyedValueLIst
   {
   $$=tycommon.DataImplStmt{}
-  $$.Assignee = $1
-  $$.Invoke = $3
-  $$.Input = $4
+  $$.Assignee = &$1
+  $$.Invoke = &$3
+  $$.Input = &$4
   }
 
 IMplSIgnalImplSTmt:
   KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst
   {
   $$=tycommon.SignalImplStmt{}
-  $$.Assignee = $1
-  $$.Invoke = $3
-  $$.Input = $4
+  $$.Assignee = &$1
+  $$.Invoke = &$3
+  $$.Input = &$4
   }
   |KEyedIDLIst SignalAssignL SIgnalID KEyedValueLIst WaitUntilL KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
-  $$.Assignee = $1
-  $$.Invoke = $3
-  $$.Input = $4
-  $$.Wait = $6
+  $$.Assignee = &$1
+  $$.Invoke = &$3
+  $$.Input = &$4
+  $$.Wait = &$6
   }
   |KEyedIDLIst WaitUntilR SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
-  $$.Assignee = $6
-  $$.Invoke = $3
-  $$.Input = $4
-  $$.Wait = $1
+  $$.Assignee = &$6
+  $$.Invoke = &$3
+  $$.Input = &$4
+  $$.Wait = &$1
   }
-  SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
+  |SIgnalID KEyedValueLIst SignalAssignR KEyedIDLIst
   {
   $$=tycommon.SignalImplStmt{}
-  $$.Assignee = $6
-  $$.Invoke = $1
-  $$.Input = $4
+  $$.Assignee = &$4
+  $$.Invoke = &$1
+  $$.Input = &$2
   }
 
 TRaitSElector:
@@ -420,46 +423,46 @@ TRaitSElectorONgoing:
   '<'
   {
   $$=tycommon.TraitSelectorList{}
-  $$.TraitSelectorList = make([]*TraitSelector)
+  $$.TraitSelectorList = make([]*tycommon.TraitSelector,0)
   }
   |TRaitSElectorONgoing TRaitSPec
   {
-  $$.TraitSelectorList = append($$.TraitSelectorList,$2)
+  $$.TraitSelectorList = append($$.TraitSelectorList,&$2)
   }
 
 TRaitSPec:
   TId KEyedValueLIst
   {
   $$=tycommon.TraitSelector{}
-  $$.TraitID=$1
-  $$.KeyedidList=$2
+  $$.TraitID=&$1
+  $$.KeyedidList=&$2
   }
   |TId
   {
   $$=tycommon.TraitSelector{}
-  $$.TraitID=$1
+  $$.TraitID=&$1
   }
 
 TRaitDElcareHEad:
   traitKeyword TId
   {
   $$=tycommon.Trait{}
-  $$.TraitID=$2
-  $$.ConformsTraitID=make([]tycommon.ID)
+  $$.TraitID=&$2
+  $$.ConformsTraitID=make([]*tycommon.ID,0)
   }
   |TRaitDElcareHEad implKeyword TId
   {
-  $$.ConformsTraitID=append($$.ConformsTraitID,$3)
+  $$.ConformsTraitID=append($$.ConformsTraitID,&$3)
   }
 
 TRaitDElcareBOdy:
   '{'
   {
   $$=tycommon.Trait{}
-  $$.Prop=tycommon.Props{}
-  $$.Prop.Prop = make([]tycommon.Prop)
-  $$.Cap = make([]tycommon.BlueprintSpec)
-  $$.CapImpl = make([]tycommon.ImpBlock)
+  $$.Prop=&tycommon.Props{}
+  $$.Prop.Prop = make([]*tycommon.Prop,0)
+  $$.Cap = make([]*tycommon.BlueprintSpec,0)
+  $$.CapImpl = make([]*tycommon.ImpBlock,0)
   }
   |TRaitDElcareBOdy newLIne
   {
@@ -468,17 +471,17 @@ TRaitDElcareBOdy:
   |TRaitDElcareBOdy propKeyword TId TRaitSElector
   {
   $$=$1
-  $$.Prop.Prop=append($$.Prop.Prop,tycommon.Prop{Id:$3,Trait:$4})
+  $$.Prop.Prop=append($$.Prop.Prop,&tycommon.Prop{Id:&$3,Trait:&$4})
   }
   |TRaitDElcareBOdy BLueprintSPec
   {
-  $$.Cap = append($$.Cap,$2)
+  $$.Cap = append($$.Cap,&$2)
   $$.CapImpl = append($$.CapImpl,nil)
   }
   |TRaitDElcareBOdy BLueprintSPec IMplBLock
   {
-  $$.Cap = append($$.Cap,$2)
-  $$.CapImpl = append($$.CapImpl,$3)
+  $$.Cap = append($$.Cap,&$2)
+  $$.CapImpl = append($$.CapImpl,&$3)
   }
 
 TRaitDElcare:
@@ -494,7 +497,7 @@ SIgnalDEclareHEad:
   signalKeyword TId
   {
   $$=tycommon.Signal{}
-  $$.Name=$2
+  $$.Name=&$2
   }
   |SIgnalDEclareHEad implKeyword TId
   {

@@ -20,13 +20,13 @@ message ImpInstruction{
 message DataImplStmt{
   vison.common.KeyedIDList assignee = 1;
   vison.common.NodeID invoke =2;
-  vison.common.KeyedIDList input = 3;
+  vison.common.KeyedValueList input = 3;
 
 }
 message SignalImplStmt{
   vison.common.KeyedIDList assignee = 1;
   vison.common.SignaledNodeID invoke =2;
-  vison.common.KeyedIDList input = 3;
+  vison.common.KeyedValueList input = 3;
   vison.common.KeyedIDList wait =4;
 }
 

@@ -20,5 +20,5 @@ message Props{
 
 message Prop{
   ID id =1;
-  vison.common.TraitSelector trait =2;
+  vison.common.TraitSelectorList trait =2;
 }
