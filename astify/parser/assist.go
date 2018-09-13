@@ -15,7 +15,7 @@ type SourceClaimC struct {
 	Signal        tycommon.Signal
 }
 
-func ConstructClaim(token []lexer.ParsedToken) []SourceClaimC {
+func ConstructClaim(token []*lexer.ParsedToken) []SourceClaimC {
 	lexer := &LexHolder{Payload: token}
 	yyParse(lexer)
 	return *lexer.Tracker
@@ -28,7 +28,7 @@ func SourceClaimSFromSourceClaim(claim SourceClaimC) []SourceClaimC {
 }
 
 type LexHolder struct {
-	Payload []lexer.ParsedToken
+	Payload []*lexer.ParsedToken
 	Current int
 	Tracker *([]SourceClaimC)
 }
