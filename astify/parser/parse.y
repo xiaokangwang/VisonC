@@ -117,17 +117,17 @@ KEyedValue:
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValue{Key:&$1,Value:&$3}
   }
-  |TId
+  |VAlue
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValue{Value:&$1}
   }
 
 KEyedValueLIstONgoing:
-  KEyedValueLIstONgoing KEyedValue
+  KEyedValueLIstONgoing ',' KEyedValue
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
-  $$.KeyedIDList = append($1.KeyedIDList,&$2)
+  $$.KeyedIDList = append($1.KeyedIDList,&$3)
   }
   |'(' KEyedValue
   {
@@ -173,10 +173,10 @@ KEyedID:
   }
 
 KEyedIDLIstONgoing:
-  KEyedIDLIstONgoing KEyedID
+  KEyedIDLIstONgoing ',' KEyedID
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
-  $$.KeyedIDList=append($1.KeyedIDList,&$2)
+  $$.KeyedIDList=append($1.KeyedIDList,&$3)
   }
   |'{'
   {
