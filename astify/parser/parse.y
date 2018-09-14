@@ -2,6 +2,7 @@
 package parser
 
 import tycommon "github.com/xiaokangwang/VisonC/structure/common"
+import "github.com/mohae/deepcopy"
 %}
 
 %union{
