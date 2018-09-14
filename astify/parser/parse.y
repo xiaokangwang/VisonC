@@ -94,15 +94,18 @@ Tracker            **([]SourceClaimC)
 
 SOurceCLaimS: SOurceCLaim
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=SourceClaimSFromSourceClaim($1)
   (*yyDollar[1].Tracker)=&$$
   }
   |SOurceCLaimS SOurceCLaim
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=append($1,$2)
   (*yyDollar[1].Tracker)=&$$
   }
   |SOurceCLaimS newLIne{
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   (*yyDollar[1].Tracker)=&$$
   }
@@ -110,16 +113,19 @@ SOurceCLaimS: SOurceCLaim
 KEyedValue:
   TId ':' VAlue
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValue{Key:&$1,Value:&$3}
   }
 
 KEyedValueLIstONgoing:
   KEyedValueLIstONgoing KEyedValue
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.KeyedIDList = append($1.KeyedIDList,&$2)
   }
   |'(' KEyedValue
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValueList{}
   $$.KeyedIDList = make([]*tycommon.KeyedValue,0)
   }
@@ -127,72 +133,86 @@ KEyedValueLIstONgoing:
 KEyedValueLIst:
   KEyedValueLIstONgoing ')'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 VAlue:
   TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Type=&tycommon.Value_IdValue{IdValue:&$1}
   }
   |numberConst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Type=&tycommon.Value_IntValue{IntValue:int64($1)}
   }
   |stringConst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Type=&tycommon.Value_StringValue{StringValue:$1}
   }
 
 KEyedID:
   TId ':' TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedID{Key:$1.Name,Id:&$3}
   }
   |TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedID{Id:&$1}
   }
 
 KEyedIDLIstONgoing:
   KEyedIDLIstONgoing KEyedID
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.KeyedIDList=append($1.KeyedIDList,&$2)
   }
   |'{'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedIDList{KeyedIDList:make([]*tycommon.KeyedID,0)}
   }
 
 KEyedIDLIst:
   KEyedIDLIstONgoing '}'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 stringConstONgoing:
   QuoteStart
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=""
   }
   |stringConstONgoing QuoteCtx
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1+$2
   }
   |stringConstONgoing EscapeStart EscapeCtx
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1+$3
   }
 
 stringConst:
   stringConstONgoing QuoteEND
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 BLueprintSPecONgoing:
   blueprintKeyword
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.BlueprintSpec{}
   }
 
@@ -200,6 +220,7 @@ BLueprintSPecONgoing:
 BLueprintSPecONgoingS:
   BLueprintSPecONgoing SIgnalID
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   $$.BlueprintID=&tycommon.NodeOrSignalID{}
   $$.BlueprintID.IDType = &tycommon.NodeOrSignalID_Signal{&$2}
@@ -208,6 +229,7 @@ BLueprintSPecONgoingS:
 BLueprintSPecONgoingN:
   BLueprintSPecONgoing NOdeID
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   $$.BlueprintID=&tycommon.NodeOrSignalID{}
   $$.BlueprintID.IDType = &tycommon.NodeOrSignalID_Node{&$2}
@@ -216,14 +238,17 @@ BLueprintSPecONgoingN:
 BLueprintSPecONgoingSN:
   BLueprintSPecONgoingS
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingN
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingSN traitKeyword TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   //TODO
   }
@@ -231,18 +256,22 @@ BLueprintSPecONgoingSN:
 BLueprintSPecONgoingSNIoONgoing:
   BLueprintSPecONgoingSN newLIne '('
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingSN  '('
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingSNIoONgoing newLIne
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingSNIoONgoing DAtaINputDOcker
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   if $$.DataInputDocker == nil {
     $$.DataInputDocker =  make([]*tycommon.DataInputDocker,0)
@@ -251,6 +280,7 @@ BLueprintSPecONgoingSNIoONgoing:
   }
   |BLueprintSPecONgoingSNIoONgoing DAtaOUtputDOcker
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   if $$.DataOutputDocker == nil {
     $$.DataOutputDocker =  make([]*tycommon.DataOutputDocker,0)
@@ -259,6 +289,7 @@ BLueprintSPecONgoingSNIoONgoing:
   }
   |BLueprintSPecONgoingSNIoONgoing SIgnalINputDOcker
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   if $$.SignalInputDocker == nil {
     $$.SignalInputDocker =  make([]*tycommon.SignalInputDocker,0)
@@ -267,6 +298,7 @@ BLueprintSPecONgoingSNIoONgoing:
   }
   |BLueprintSPecONgoingSNIoONgoing SIgnalOUtputDOcker
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   if $$.SignalOutputDocker == nil {
     $$.SignalOutputDocker =  make([]*tycommon.SignalOutputDocker,0)
@@ -277,16 +309,19 @@ BLueprintSPecONgoingSNIoONgoing:
 BLueprintSPecONgoingSNIo:
   BLueprintSPecONgoingSNIoONgoing ')'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 BLueprintSPec:
   BLueprintSPecONgoingSNIo newLIne
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |BLueprintSPecONgoingSNIo
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
@@ -295,6 +330,7 @@ BLueprintSPec:
 IMplSPec:
   IMplSPecONgoing '{'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
@@ -302,18 +338,21 @@ IMplSPec:
 IMplSPecONgoing:
   implKeyword SIgnalID
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.ImplSpec{}
   $$.Blueprint=&tycommon.NodeOrSignalID{}
   $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Signal{&$2}
   }
   |implKeyword NOdeID
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.ImplSpec{}
   $$.Blueprint=&tycommon.NodeOrSignalID{}
   $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Node{&$2}
   }
   |implKeyword
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.ImplSpec{}
   }
 
@@ -321,40 +360,47 @@ IMplSPecONgoing:
 DAtaINputDOcker:
   inputKeyword TId TRaitSElector
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.DataInputDocker{DockerID:&$2,TraitSelector:&$3}
   }
 
 DAtaOUtputDOcker:
   outputKeyword TId TRaitSElector
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.DataOutputDocker{DockerID:&$2,TraitSelector:&$3}
   }
 
 SIgnalINputDOcker:
   inputKeyword signalKeyword TId TRaitSElector
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalInputDocker{DockerID:&$3,TraitSelector:&$4}
   }
 
 SIgnalOUtputDOcker:
   outputKeyword signalKeyword TId TRaitSElector
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalOutputDocker{DockerID:&$3,TraitSelector:&$4}
   }
 
 IMplBLockONgoing:
   IMplBLockONgoing newLIne
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |IMplSPec
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Spec=&$1
   }
 
 IMplBLock:
   IMplBLockONgoing IMpINstructionLIst '}'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.ImpBlock{}
   $$.Spec=$1.Spec
   $$.Ctx=$2
@@ -363,31 +409,37 @@ IMplBLock:
 IMpINstructionLIst:
   IMpINstruction
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=make([]*tycommon.ImpInstruction,1)
   $$[0]=&$1
   }
   |IMpINstructionLIst newLIne
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |IMpINstructionLIst IMpINstruction
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=append($1,&$2)
   }
 
 IMpINstruction:
   IMplDAtaImplSTmt
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.InstrType=&tycommon.ImpInstruction_Data{&$1}
   }
   |IMplSIgnalImplSTmt
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.InstrType=&tycommon.ImpInstruction_Signall{&$1}
   }
 
 IMplDAtaImplSTmt:
   KEyedIDLIst DataAssign NOdeIDWIthTRait KEyedValueLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.DataImplStmt{}
   $$.Assignee = &$1
   $$.Invoke = &$3
@@ -397,6 +449,7 @@ IMplDAtaImplSTmt:
 IMplSIgnalImplSTmt:
   KEyedIDLIst SignalAssignL SIgnalIDWIthTRait KEyedValueLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$1
   $$.Invoke = &$3
@@ -404,6 +457,7 @@ IMplSIgnalImplSTmt:
   }
   |KEyedIDLIst SignalAssignL SIgnalIDWIthTRait KEyedValueLIst WaitUntilL KEyedIDLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$1
   $$.Invoke = &$3
@@ -412,6 +466,7 @@ IMplSIgnalImplSTmt:
   }
   |KEyedIDLIst WaitUntilR SIgnalIDWIthTRait KEyedValueLIst SignalAssignR KEyedIDLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$6
   $$.Invoke = &$3
@@ -420,6 +475,7 @@ IMplSIgnalImplSTmt:
   }
   |SIgnalIDWIthTRait KEyedValueLIst SignalAssignR KEyedIDLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.SignalImplStmt{}
   $$.Assignee = &$4
   $$.Invoke = &$1
@@ -429,29 +485,34 @@ IMplSIgnalImplSTmt:
 TRaitSElector:
   TRaitSElectorONgoing '>'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 TRaitSElectorONgoing:
   '<'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.TraitSelectorList{}
   $$.TraitSelectorList = make([]*tycommon.TraitSelector,0)
   }
   |TRaitSElectorONgoing TRaitSPec
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.TraitSelectorList = append($$.TraitSelectorList,&$2)
   }
 
 TRaitSPec:
   TId KEyedValueLIst
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.TraitSelector{}
   $$.TraitID=&$1
   $$.KeyedidList=&$2
   }
   |TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.TraitSelector{}
   $$.TraitID=&$1
   }
@@ -459,18 +520,21 @@ TRaitSPec:
 TRaitDElcareHEad:
   traitKeyword TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.Trait{}
   $$.TraitID=&$2
   $$.ConformsTraitID=make([]*tycommon.ID,0)
   }
   |TRaitDElcareHEad implKeyword TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.ConformsTraitID=append($$.ConformsTraitID,&$3)
   }
 
 TRaitDElcareBOdy:
   '{'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.Trait{}
   $$.Prop=&tycommon.Props{}
   $$.Prop.Prop = make([]*tycommon.Prop,0)
@@ -479,20 +543,24 @@ TRaitDElcareBOdy:
   }
   |TRaitDElcareBOdy newLIne
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
   |TRaitDElcareBOdy propKeyword TId TRaitSElector
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   $$.Prop.Prop=append($$.Prop.Prop,&tycommon.Prop{Id:&$3,Trait:&$4})
   }
   |TRaitDElcareBOdy BLueprintSPec
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Cap = append($$.Cap,&$2)
   $$.CapImpl = append($$.CapImpl,nil)
   }
   |TRaitDElcareBOdy BLueprintSPec IMplBLock
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Cap = append($$.Cap,&$2)
   $$.CapImpl = append($$.CapImpl,&$3)
   }
@@ -500,6 +568,7 @@ TRaitDElcareBOdy:
 TRaitDElcare:
   TRaitDElcareHEad TRaitDElcareBOdy '}'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=$2
     $$.TraitID=$1.TraitID
     $$.TraitImplID=$1.TraitImplID
@@ -509,17 +578,20 @@ TRaitDElcare:
 SIgnalDEclareHEad:
   signalKeyword TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.Signal{}
   $$.Name=&$2
   }
   |SIgnalDEclareHEad implKeyword TId
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   }
 
 SIgnalDEclare:
   SIgnalDEclareHEad  TRaitDElcareBOdy '}'
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   $$.Cap=$2.Cap
   }
@@ -527,22 +599,26 @@ SIgnalDEclare:
   NOdeIDWIthTRait:
     TRaitSElector NOdeID
     {
+    yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=$2
     $$.Trait=$1.TraitSelectorList[0].TraitID.Name
     }
     |NOdeID
     {
+    yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=$1
     }
 
   SIgnalIDWIthTRait:
     TRaitSElector SIgnalID
     {
+    yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=$2
     $$.Trait=$1.TraitSelectorList[0].TraitID.Name
     }
     |SIgnalID
     {
+    yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
     $$=$1
     }
 
@@ -551,21 +627,25 @@ SIgnalDEclare:
 SOurceCLaim:
   TRaitDElcare
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Contain=1
   $$.Trait=$1
   }
   |SIgnalDEclare
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Contain=2
   $$.Signal=$1
   }
   |BLueprintSPec
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Contain=3
   $$.BlueprintSpec=$1
   }
   |IMplBLock
   {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.Contain=4
   $$.ImplBlock=$1
   }
