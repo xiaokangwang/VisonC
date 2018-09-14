@@ -117,6 +117,11 @@ KEyedValue:
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValue{Key:&$1,Value:&$3}
   }
+  |TId
+  {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
+  $$=tycommon.KeyedValue{Value:&$1}
+  }
 
 KEyedValueLIstONgoing:
   KEyedValueLIstONgoing KEyedValue
