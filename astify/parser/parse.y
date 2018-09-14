@@ -129,11 +129,16 @@ KEyedValueLIstONgoing:
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$.KeyedIDList = append($1.KeyedIDList,&$3)
   }
-  |'(' KEyedValue
+  |'('
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValueList{}
   $$.KeyedIDList = make([]*tycommon.KeyedValue,0)
+  }
+  |KEyedValueLIstONgoing  KEyedValue
+  {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
+  $$.KeyedIDList = append($1.KeyedIDList,&$2)
   }
 
 KEyedValueLIst:
@@ -182,6 +187,11 @@ KEyedIDLIstONgoing:
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedIDList{KeyedIDList:make([]*tycommon.KeyedID,0)}
+  }|
+  KEyedIDLIstONgoing KEyedID
+  {
+  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
+  $$.KeyedIDList=append($1.KeyedIDList,&$2)
   }
 
 KEyedIDLIst:
