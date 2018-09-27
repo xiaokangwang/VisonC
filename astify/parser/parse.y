@@ -95,20 +95,23 @@ Tracker            **([]SourceClaimC)
 
 SOurceCLaimS: SOurceCLaim
   {
+  tracker:=yyDollar[1].Tracker
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=SourceClaimSFromSourceClaim($1)
-  (*yyDollar[1].Tracker)=&$$
+  (*tracker)=&$$
   }
   |SOurceCLaimS SOurceCLaim
   {
+  tracker:=yyDollar[1].Tracker
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=append($1,$2)
-  (*yyDollar[1].Tracker)=&$$
+  (*tracker)=&$$
   }
   |SOurceCLaimS newLIne{
+  tracker:=yyDollar[1].Tracker
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
-  (*yyDollar[1].Tracker)=&$$
+  (*tracker)=&$$
   }
 
 KEyedValue:
