@@ -4,6 +4,6 @@ input b <number>
 input c <number>
 output o <number>
 ) impl {
-mulres:=<number>Pmul(a,b)
-o:=<number>Padd(mulres,c)
+{mulres}:=<number>Pmul(a,b)
+{o}:=<number>Padd(mulres,c)
 }

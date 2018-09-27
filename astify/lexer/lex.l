@@ -55,10 +55,10 @@ impl
 join
     return "join"
 
-S[a-z]([a-z0-9_])+
+S[a-z]([a-zA-Z0-9_])+
     return "Signal"
 
-P[a-z]([a-z0-9_])+
+P[a-z]([a-zA-Z0-9_])+
     return "Process"
 
 [_a-z]([a-zA-Z0-9_])*
