@@ -13,6 +13,7 @@ message Trait{
   repeated vison.common.BlueprintSpec Cap =2;
   repeated vison.common.ImpBlock CapImpl =6;
   repeated vison.common.ID conformsTraitID =3;
+  bytes Imprint = 7;
 }
 message Props{
   repeated Prop prop =1;
