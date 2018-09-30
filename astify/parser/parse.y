@@ -355,19 +355,14 @@ IMplSPec:
 
 
 IMplSPecONgoing:
-  implKeyword SIgnalID
+  implKeyword TId BLueprintSPec
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.ImplSpec{}
-  $$.Blueprint=&tycommon.NodeOrSignalID{}
-  $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Signal{&$2}
-  }
-  |implKeyword NOdeID
-  {
-  yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
-  $$=tycommon.ImplSpec{}
-  $$.Blueprint=&tycommon.NodeOrSignalID{}
-  $$.Blueprint.IDType = &tycommon.NodeOrSignalID_Node{&$2}
+  $$.Blueprint=&tycommon.BlueprintSpec{}
+  $$.Blueprint=&$3
+  $$.ImplID=&tycommon.ID{}
+  $$.ImplID=&$2
   }
   |implKeyword
   {

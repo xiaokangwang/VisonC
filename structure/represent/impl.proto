@@ -8,12 +8,10 @@ import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
 message ImplElab{
   bytes Imprint = 1;
   vison.common.BlueprintSpec Spec = 2;
-  repeated bytes Entrypoint =3;
 }
 message ImplExecBlock{
   bytes Imprint = 1;
   vison.common.BlueprintSpec Spec = 2;
-  repeated bytes waits =3;
 }
 message ImplConnection{
   bytes from = 1;

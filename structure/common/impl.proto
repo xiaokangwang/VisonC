@@ -2,7 +2,9 @@ syntax = "proto3";
 package vison.common;
 option go_package = "common";
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 message ImplSpec{
   bytes Imprint =1;
-  vison.common.NodeOrSignalID Blueprint=2;
+  vison.common.BlueprintSpec Blueprint=2;
+  vison.common.ID ImplID=3;
 }
