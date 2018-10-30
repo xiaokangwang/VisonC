@@ -16,7 +16,7 @@ import (
 	"os"
 )
 
-func parseFile(f os.File, set token.FileSet, writer zip.Writer) error {
+func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 	stat, err := f.Stat()
 	if err != nil {
 		return err
@@ -223,5 +223,10 @@ func outputNamedFileToZip(filename string, content []byte, writer zip.Writer) er
 			return err
 		}
 	}
+	return nil
 
+}
+
+func ParseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
+	return parseFile(f,set,writer)
 }
