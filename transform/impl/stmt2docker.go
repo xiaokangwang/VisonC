@@ -7,7 +7,7 @@ import (
 	"github.com/xiaokangwang/VisonC/structure/represent"
 )
 
-func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) {
+func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.ImplElab {
 
 	ret:=represent.ImplElab{
 		Spec: implspec.Blueprint,
@@ -26,14 +26,6 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) {
 
 	}
 
-	for _, docking := range implspec.Blueprint.DataOutputDocker {
-		//TODO Verify no override
-		_,errsig:=referenceMap[docking.DockerID.Name]
-		if errsig {
-			panic("dup name for docker")
-		}
-		referenceMap[docking.DockerID.Name] =  docking.Imprint
-	}
 
 	for _, docking := range implspec.Blueprint.SignalInputDocker {
 		_,errsig:=referenceMap[docking.DockerID.Name]
@@ -43,13 +35,7 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) {
 		referenceMap[docking.DockerID.Name] =  docking.Imprint
 	}
 
-	for _, docking := range implspec.Blueprint.SignalOutputDocker {
-		_,errsig:=referenceMap[docking.DockerID.Name]
-		if errsig {
-			panic("dup name for docker")
-		}
-		referenceMap[docking.DockerID.Name] =  docking.Imprint
-	}
+
 	
 	for _,statement := range block.Ctx {
 		if x:=statement.GetData();x!=nil {
@@ -76,6 +62,31 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) {
 			createlink(inputid, referenceMap, execblock, ret, outputid)
 		}
 	}
+
+	//Finally, connect output var with outgoing docker
+	for _, docking := range implspec.Blueprint.DataOutputDocker {
+		outi:=referenceMap[docking.DockerID.Name]
+		connection := represent.ImplConnection{
+			From:    outi,
+			To:      docking.Imprint,
+			Imprint: imprint.GenerateRandImprint(),
+		}
+		ret.Connection = append(ret.Connection, &connection)
+	}
+
+	for _, docking := range implspec.Blueprint.SignalOutputDocker {
+		outi:=referenceMap[docking.DockerID.Name]
+		connection := represent.ImplConnection{
+			From:    outi,
+			To:      docking.Imprint,
+			Imprint: imprint.GenerateRandImprint(),
+
+		}
+		ret.Connection = append(ret.Connection, &connection)
+	}
+
+	return ret
+
 }
 
 func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, execblock *represent.ImplExecBlock, ret represent.ImplElab, outputid []*tycommon.KeyedID) {
@@ -111,7 +122,7 @@ func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, 
 	for outputseq, data := range outputid {
 		var outputimprint []byte
 		linking := data
-		if linking.Key != nil && linking.Key.Name != "" {
+		if linking != nil && linking.Key.Name != "" {
 			outputimprint = append([]byte(fmt.Sprintf("func.koutput.%v.", linking.Key.Name)), execblock.Imprint...)
 		} else {
 			outputimprint = append([]byte(fmt.Sprintf("func.qoutput.%v.", outputseq)), execblock.Imprint...)
@@ -121,4 +132,9 @@ func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, 
 		referenceMap[data.Id.Name] = outputimprint
 
 	}
+}
+
+
+func Transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.ImplElab {
+	return transfrom(implspec,block)
 }

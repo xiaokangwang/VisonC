@@ -3,6 +3,7 @@ package vison.represent;
 option go_package = "represent";
 
 import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
 
 message ImplElab{
@@ -10,6 +11,9 @@ message ImplElab{
   vison.common.BlueprintSpec Spec = 2;
   repeated ImplExecBlock exec =3;
   repeated ImplConnection connection =4;
+  bytes TargetBlueprintImprint =15;
+  bytes TargetTraitImprint = 16;
+  bytes TargetSignalImprint = 17;
 }
 message ImplExecBlock{
   bytes Imprint = 1;

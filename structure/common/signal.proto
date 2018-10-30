@@ -4,9 +4,11 @@ option go_package = "common";
 
 import "github.com/xiaokangwang/VisonC/structure/common/id.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
+import "github.com/xiaokangwang/VisonC/structure/common/implInstruction.proto";
 
 message Signal{
   vison.common.ID name=1;
   bytes Imprint = 6;
   repeated vison.common.BlueprintSpec Cap =7;
+  repeated vison.common.ImpBlock CapImpl =8;
 }

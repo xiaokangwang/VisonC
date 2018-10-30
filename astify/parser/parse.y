@@ -608,6 +608,7 @@ SIgnalDEclare:
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=$1
   $$.Cap=$2.Cap
+  $$.CapImpl=$2.CapImpl
   }
 
   NOdeIDWIthTRait:
