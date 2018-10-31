@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func dump(reader zip.Reader)error{
+func dump(reader *zip.Reader)error{
 	//Enum zip
 	for _,file := range reader.File {
 		filename:=file.Name
@@ -65,4 +65,11 @@ func dump(reader zip.Reader)error{
 			fmt.Println(outstring)
 		}
 	}
+
+	return nil
+}
+
+
+func Dump(reader *zip.Reader)error{
+	return dump(reader)
 }
