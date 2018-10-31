@@ -3,7 +3,7 @@ package debugger
 import (
 	"archive/zip"
 	"fmt"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	"github.com/xiaokangwang/VisonC/structure/common"
 	"github.com/xiaokangwang/VisonC/structure/represent"
 	"io/ioutil"
@@ -23,6 +23,8 @@ func dump(reader *zip.Reader)error{
 		if err != nil {
 			return err
 		}
+
+		fmt.Println(filename)
 
 		if strings.HasPrefix(filename,"blueprints/"){
 			var blueprint common.Blueprint

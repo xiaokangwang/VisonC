@@ -119,6 +119,7 @@ KEyedValue:
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
   $$=tycommon.KeyedValue{Key:&$1,Value:&$3}
+  println("=================================")
   }
   |VAlue
   {
@@ -542,7 +543,7 @@ TRaitDElcareHEad:
   |TRaitDElcareHEad implKeyword TId
   {
   yyDollar = (deepcopy.Copy(yyDollar)).([]yySymType)
-  $$.ConformsTraitID=append($$.ConformsTraitID,&$3)
+  $$.TraitImplID=&$3
   }
 
 TRaitDElcareBOdy:

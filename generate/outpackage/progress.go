@@ -5,7 +5,7 @@ import (
 	"bufio"
 	"encoding/hex"
 	"fmt"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	tylexer "github.com/xiaokangwang/VisonC/astify/lexer"
 	"github.com/xiaokangwang/VisonC/astify/parser"
 	"github.com/xiaokangwang/VisonC/generate/imprint"
@@ -44,7 +44,9 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 			exec := claims[currentProgressing+1].ImplBlock
 			if exec.Spec.Blueprint == nil {
 				exec.Spec.Blueprint = &blueprintspec
+				exec.Spec.Blueprint = fill.FillBlueprintspec(exec.Spec.Blueprint)
 			}
+
 			out := impl.Transfrom(*exec.Spec, exec)
 			generating := common.Blueprint{}
 			generating.Spec = &blueprintspec
@@ -92,7 +94,9 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 						blueprint:=trait.Cap[implid]
 						if impld.Spec.Blueprint==nil {
 							impld.Spec.Blueprint = blueprint
+							impld.Spec.Blueprint = fill.FillBlueprintspec(impld.Spec.Blueprint)
 						}
+
 						implout:=impl.Transfrom(*impld.Spec,*impld)
 
 						implout.Imprint = imprint.GenerateRandImprint()
@@ -133,7 +137,9 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 						blueprint:= signalstructure.Cap[sigid]
 						if signald.Spec.Blueprint==nil {
 							signald.Spec.Blueprint = blueprint
+							signald.Spec.Blueprint = fill.FillBlueprintspec(signald.Spec.Blueprint)
 						}
+
 						signalout :=impl.Transfrom(*signald.Spec,*signald)
 
 						signalout.Imprint = imprint.GenerateRandImprint()

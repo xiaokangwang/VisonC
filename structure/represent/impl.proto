@@ -3,7 +3,6 @@ package vison.represent;
 option go_package = "represent";
 
 import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
-import "github.com/xiaokangwang/VisonC/structure/common/blueprintspec.proto";
 import "github.com/xiaokangwang/VisonC/structure/common/impl.proto";
 
 message ImplElab{

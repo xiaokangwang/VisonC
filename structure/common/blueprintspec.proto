@@ -12,5 +12,4 @@ message BlueprintSpec{
   repeated vison.common.SignalInputDocker SignalInputDocker=4;
   repeated vison.common.SignalOutputDocker SignalOutputDocker=5;
   vison.common.ID PharseAttach=6;
-  vison.common.ID TraitConstrant=7;
 }

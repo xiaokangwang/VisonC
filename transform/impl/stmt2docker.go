@@ -9,7 +9,7 @@ import (
 
 func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.ImplElab {
 
-	ret:=represent.ImplElab{
+	ret:=&represent.ImplElab{
 		Spec: implspec.Blueprint,
 		Exec:       make([]*represent.ImplExecBlock,0),
 		Connection: make([]*represent.ImplConnection,0),
@@ -42,9 +42,10 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.Im
 			execblock:=&represent.ImplExecBlock{
 				Spec: &tycommon.BlueprintSpec{
 					BlueprintID: &tycommon.NodeOrSignalID{&tycommon.NodeOrSignalID_Node{x.Invoke}},
-					TraitConstrant: &tycommon.ID{x.Invoke.Trait},
 				},
+				Imprint:imprint.GenerateRandImprint(),
 			}
+			ret.Exec=append(ret.Exec,execblock)
 			inputid:=x.Input.KeyedIDList
 			outputid:=x.Assignee.KeyedIDList
 			createlink(inputid, referenceMap, execblock, ret, outputid)
@@ -54,9 +55,10 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.Im
 			execblock:=&represent.ImplExecBlock{
 				Spec: &tycommon.BlueprintSpec{
 					BlueprintID: &tycommon.NodeOrSignalID{&tycommon.NodeOrSignalID_Signal{x.Invoke}},
-					TraitConstrant: &tycommon.ID{x.Invoke.Trait},
 				},
+				Imprint:imprint.GenerateRandImprint(),
 			}
+			ret.Exec=append(ret.Exec,execblock)
 			inputid:=x.Input.KeyedIDList
 			outputid:=x.Assignee.KeyedIDList
 			createlink(inputid, referenceMap, execblock, ret, outputid)
@@ -85,11 +87,11 @@ func transfrom(implspec tycommon.ImplSpec, block tycommon.ImpBlock) represent.Im
 		ret.Connection = append(ret.Connection, &connection)
 	}
 
-	return ret
+	return *ret
 
 }
 
-func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, execblock *represent.ImplExecBlock, ret represent.ImplElab, outputid []*tycommon.KeyedID) {
+func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, execblock *represent.ImplExecBlock, ret *represent.ImplElab, outputid []*tycommon.KeyedID) {
 	for inputseq, linking := range inputid {
 		var usingimprint []byte
 		switch v := linking.Value.GetType().(type) {
