@@ -11,4 +11,12 @@ output c <vector2>
 {c}:=<primary>Padd(a,b)
 }
 
+blueprint Psub(
+input a <vector2>
+input b <vector2>
+output c <vector2>
+)impl{
+{c}:=<primary>Psub(a,b)
+}
+
 }

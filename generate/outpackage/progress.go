@@ -23,7 +23,7 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 	}
 	filetracker := set.AddFile(f.Name(), set.Base(), int(stat.Size()))
 
-	bufinput := bufio.NewReader(&f)
+	bufinput := bufio.NewReader(f)
 	result := tylexer.GetLexerResult(filetracker, bufinput)
 	claims := parser.ConstructClaim(result)
 	claims = fill.FillImprint(claims)
@@ -86,6 +86,9 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 				trait:=claims[currentProgressing].Trait
 				if trait.CapImpl != nil {
 					for implid,impld:=range trait.CapImpl{
+						if impld == nil {
+							continue
+						}
 						blueprint:=trait.Cap[implid]
 						if impld.Spec.Blueprint==nil {
 							impld.Spec.Blueprint = blueprint
@@ -204,9 +207,11 @@ func parseFile(f *os.File, set *token.FileSet, writer *zip.Writer) error {
 		currentProgressing++
 	}
 
+	return nil
+
 }
 
-func outputNamedFileToZip(filename string, content []byte, writer zip.Writer) err {
+func outputNamedFileToZip(filename string, content []byte, writer* zip.Writer) error {
 
 	o, err := writer.Create(filename)
 	if err != nil {

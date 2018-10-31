@@ -122,8 +122,8 @@ func createlink(inputid []*tycommon.KeyedValue, referenceMap map[string][]byte, 
 	for outputseq, data := range outputid {
 		var outputimprint []byte
 		linking := data
-		if linking != nil && linking.Key.Name != "" {
-			outputimprint = append([]byte(fmt.Sprintf("func.koutput.%v.", linking.Key.Name)), execblock.Imprint...)
+		if linking != nil && linking.Key != "" {
+			outputimprint = append([]byte(fmt.Sprintf("func.koutput.%v.", linking.Key)), execblock.Imprint...)
 		} else {
 			outputimprint = append([]byte(fmt.Sprintf("func.qoutput.%v.", outputseq)), execblock.Imprint...)
 		}

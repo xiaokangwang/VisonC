@@ -14,9 +14,9 @@ import (
 func main() {
 	var input, output string
 	var inputIsDir bool
-	flag.StringVar(&input, "input file", ".", "The input file(s)")
-	flag.BoolVar(&inputIsDir, "directory input", false, "Input is a directory")
-	flag.StringVar(&output, "output file", "out.visonpkg", "The output file")
+	flag.StringVar(&input, "i", ".", "The input file(s)")
+	flag.BoolVar(&inputIsDir, "d", false, "Input is a directory")
+	flag.StringVar(&output, "o", "out.visonpkg", "The output file")
 
 	flag.Parse()
 
@@ -53,7 +53,13 @@ func main() {
 		}
 		outpackage.ParseFile(inputfile, fileset, ozip)
 	}
-	ozip.Flush()
-	outfile.Close()
+	err=ozip.Close()
+	if err != nil {
+		panic(err)
+	}
+	err=outfile.Close()
+	if err != nil {
+		panic(err)
+	}
 
 }

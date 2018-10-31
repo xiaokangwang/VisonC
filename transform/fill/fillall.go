@@ -9,6 +9,7 @@ func FillImprint(claim []parser.SourceClaimC)[]parser.SourceClaimC {
 	for n := range claim {
 		claim[n] = fillOneImprint(claim[n])
 	}
+	return claim
 }
 
 func fillOneImprint(claim parser.SourceClaimC) parser.SourceClaimC {
@@ -21,7 +22,9 @@ func fillOneImprint(claim parser.SourceClaimC) parser.SourceClaimC {
 		//Also generate imprint for trait impl
 		if Trait.CapImpl != nil {
 			for capimpl := range Trait.CapImpl {
-				Trait.CapImpl[capimpl].Spec.Imprint = imprint.GenerateRandImprint()
+				if Trait.CapImpl[capimpl]!=nil&&Trait.CapImpl[capimpl].Spec !=nil {
+					Trait.CapImpl[capimpl].Spec.Imprint = imprint.GenerateRandImprint()
+				}
 			}
 		}
 
